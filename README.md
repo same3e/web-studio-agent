@@ -1,43 +1,80 @@
 # Web Studio Agent
 
-Web Studio Agent is a product and design workflow for coding agents. It turns an idea into an approved and implemented website or application while keeping project decisions in files.
+Web Studio Agent is an open-source workflow for Codex and Claude Code that turns a product idea into an approved, implemented, and verified website or web application. It keeps decisions and evidence close to the project instead of treating a successful build as the end of the work.
 
-## Two skills
+## What it does
 
-- `product-studio` inspects an existing project or initializes `.studio/`, performs adaptive discovery, recommends scope and a technical approach, presents up to three concepts, waits for explicit approval, then orchestrates only the relevant frontend, backend, database, integration, test, review, security, and browser-verification work for the approved active scope.
-- `add-reference` analyzes URLs, screenshots, application screens, and flows. It records reusable visual, product, UX, and interaction evidence in `.studio/references/`.
+It guides an idea through discovery, scope, technical decisions, references, distinct concepts, explicit approval, implementation, and verification. It supports landing pages, business websites, SaaS, dashboards, internal tools, AI applications, PWAs, redesigns, and refactoring of existing projects.
 
-They exchange information through project-local `.studio/`; the installed plugin never stores client facts, screenshots, concepts, or copy.
+It selects specialist work from the project surface, so a simple landing page does not inherit a database or operations process intended for a persistent application.
 
-## Workflow
+It exists to help coding agents avoid starting before approval, inventing product facts or fake form success, selecting unnecessary backend/database/security/release work, declaring completion after a build, or confusing concept renders with browser evidence.
 
-```text
-idea → adaptive audit → product requirements → technical recommendation
-→ references → concepts → approval → implementation → verification
-```
+## Who it is for
 
-## Why use it
+- Developers building a product or client project with Codex or Claude Code.
+- Teams that want project decisions, scope, and verification evidence recorded in files.
+- Existing projects that need an audit, a bounded refactor, or a clearer delivery workflow.
 
-- Uses inference before asking only the necessary product questions.
-- Explains technical options through cost, speed, reliability, maintenance, and user outcomes.
-- Separates active, deferred, and rejected scope around one first complete journey.
-- Supports marketing sites, web apps, SaaS, dashboards, PWA, internal tools, mobile planning, and redesigns.
-- Keeps fact-based copy, reference no-copy boundaries, approval gates, ownership boundaries, and verification beyond a passing build.
-- Skips backend, database, integration, and full security-audit work when a project has no relevant surface.
-- Works with existing repositories rather than forcing one stack.
+## Skills
 
-General UI/UX knowledge systems provide shared design rules, palettes, patterns, and best practices. Web Studio Agent manages the surrounding workflow: discovery, scope, stack, references, concepts, approval, implementation, and verification. They can be complementary.
+### `product-studio`
 
-Opinionated starter repositories provide a predefined engineering stack. Web Studio Agent first determines what should be built and then selects a suitable starter profile. That is more flexible, but requires stronger routing and validation; the included profiles improve reproducibility.
+Inspects an existing repository, performs inference-first discovery, separates facts and assumptions from active, deferred, and rejected scope, recommends an approach, searches the personal reference library, proposes distinct concepts, waits for explicit approval, coordinates relevant internal agents, and records checks, blockers, and unavailable evidence honestly.
 
-## Examples
+### `add-reference`
 
-- **Landing page:** clarify offer and CTA, request industry/visual references, approve a conversion direction, then verify the inquiry journey.
-- **SaaS dashboard:** define roles, workspace entities, task flow, states, and a managed-backend MVP recommendation before UI work.
-- **AI web application:** define review boundaries, privacy, background jobs, model failure handling, and MVP scope before implementation.
+Analyzes URLs, screenshots, application screens, flows, and local images. It stores reusable references in the permanent personal library; classifies industry, style, role, section, platform, pattern, and suitable project type; detects exact file-hash and normalized-URL duplicates; records reusable principles and no-copy boundaries; and links approved references to the active project. It does not claim perceptual-image duplicate detection.
 
-See [QUICKSTART.md](QUICKSTART.md), [INSTALL.md](INSTALL.md), and [docs/HOW_IT_WORKS.md](docs/HOW_IT_WORKS.md).
+## Internal agents
 
-## Limitations
+Internal agents are selected automatically from the active project surface; they are not user commands. A static site does not require database or operations work. When native subagents are unavailable, `product-studio` uses the same contracts sequentially.
 
-The plugin does not provide hosting or paid APIs, and cannot guarantee production readiness without external service configuration. Native mobile builds may require platform accounts and tooling. Quality still depends on user input and review. References are evidence, not material for direct copying.
+| Agent | Responsibility |
+| --- | --- |
+| `repo-explorer` | Maps an existing codebase before changes. |
+| `frontend-builder` | Implements approved visible web surfaces. |
+| `backend-builder` | Builds approved APIs, server logic, and jobs. |
+| `database-architect` | Designs persistence, migrations, and data constraints. |
+| `integration-builder` | Implements approved external-provider adapters. |
+| `test-engineer` | Adds and runs applicable automated tests. |
+| `code-reviewer` | Reviews implementation risks and regressions. |
+| `security-auditor` | Audits relevant auth, data, server, and integration risk. |
+| `refactor-engineer` | Plans and verifies approved behavior-preserving refactors. |
+| `performance-auditor` | Separates measured performance evidence from risks and hypotheses. |
+| `browser-qa` | Verifies runnable visible journeys in a browser. |
+| `release-engineer` | Prepares release evidence, packaging, and rollback gates. |
+| `operations-engineer` | Defines proportionate operational readiness for persistent services. |
+
+## Installation
+
+### Claude Code
+
+Use Claude Code’s supported local-marketplace flow to add this checkout, install `web-studio-agent@web-studio-agent`, and reload plugins. The repository includes Claude marketplace and plugin manifests. See [INSTALL.md](INSTALL.md) for the detailed local-development, update, and uninstall process.
+
+### Codex
+
+Use Codex’s local-plugin or plugin-manager flow with this checkout. The repository includes `.codex-plugin/plugin.json`; no exact Codex CLI or marketplace installation command is presented as runtime-tested. See [INSTALL.md](INSTALL.md) for details.
+
+## Project data
+
+`<project-root>/.studio/` contains project-specific decisions, scope, selected references, approval, implementation plans, and verification reports.
+
+Canonical reusable references live in the personal library resolved from `WEB_STUDIO_AGENT_HOME`:
+
+- Windows: `%USERPROFILE%\.web-studio-agent\`
+- macOS/Linux: `$HOME/.web-studio-agent/`
+
+`.studio/references/` stores project links, usage, conflicts, gaps, and no-copy boundaries—not a copied global library. Private project data must not live in plugin source or plugin cache.
+
+## Current status
+
+- Architecture and deterministic validation: complete.
+- Platform runtime verification: partial.
+- Stable release readiness: not yet confirmed.
+
+Manifest and package structure are validated, and sequential fallback is structurally tested. Clean Codex and Claude installation, native specialist auto-loading, fresh-chat black-box workflows, real browser QA, generated API/database runtime, and real performance measurement remain unverified. Workflow configuration is present; the latest hosted GitHub Actions run was not verified in this environment.
+
+## License
+
+[MIT](LICENSE)

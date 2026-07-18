@@ -6,7 +6,7 @@ The repository's deterministic architecture checks are passing after two verifie
 
 ## Repository and packaging
 
-Git source-control status is unverified because Git rejects this checkout as dubious ownership; no global configuration was changed. Structural package audit passed in `scripts/test_phase4.ps1`; it found exactly two user-facing skills and no detected local-machine paths in distributable content. The package audit is `.studio-phase4/reports/PACKAGE_AUDIT.md`.
+Git operates normally: local and remote histories are linked, `main` tracks `origin/main`, the working tree was clean after the push, and the older history is retained on the `architecture-v2` backup branch. Structural package audit passed in `scripts/test_phase4.ps1`; it found exactly two user-facing skills and no detected local-machine paths in distributable content. The package audit is `.studio-phase4/reports/PACKAGE_AUDIT.md`.
 
 ## Platform status
 
@@ -37,4 +37,4 @@ All passed on 2026-07-18:
 
 Remediated: `.gitignore` now protects root project/environment/Phase 4 disposable data; Phase 4 package audit no longer mistakes PowerShell regex syntax for a path; `Production SaaS handoff` now selects `release-engineer`.
 
-Remaining blockers are environmental/platform limitations, recorded in [`PHASE4_FINDINGS.md`](PHASE4_FINDINGS.md): Git trust, Codex CLI startup, Claude runtime, host installation, and all browser/application runtime evidence. No critical or high product-logic defect remains in the deterministic suites, but these blockers preclude a stable-release recommendation.
+Remaining blockers are platform/runtime limitations, recorded in [`PHASE4_FINDINGS.md`](PHASE4_FINDINGS.md): Codex/Claude host installation, host skill loading, and browser/application runtime evidence. Workflow configuration is present, but the latest hosted GitHub Actions run was not verified in this environment. No critical or high product-logic defect remains in the deterministic suites, but these blockers preclude a stable-release recommendation.

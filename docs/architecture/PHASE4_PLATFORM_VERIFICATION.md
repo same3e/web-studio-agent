@@ -2,7 +2,7 @@
 
 | Surface | Status | Evidence / limitation |
 | --- | --- | --- |
-| Codex packaging | structurally verified | `scripts/test_phase4.ps1` parsed `.codex-plugin/plugin.json` and verified the two skill entry points and bundled paths. |
+| Codex packaging | structurally verified | `scripts/test_phase4.ps1` parsed `.codex-plugin/plugin.json` and verified the two skill entry points and bundled paths; host installation remains separate. |
 | Codex skill loading | unverified | `codex --help` could not start: host process access was denied. No real installation was attempted. |
 | Codex specialist loading | unverified | TOML wrappers are structurally packaged, but project/user-local host discovery could not be executed. |
 | Codex fallback | verified structurally | Isolated static, lead, SaaS, and release fixtures passed routing/preflight without custom-agent loading. |

@@ -2,7 +2,7 @@
 
 ## Phase 4A — repository, packaging, installation, and platform agents — completed with limitations
 
-- [x] completed — repository root audit. Git is present but `git rev-parse --is-inside-work-tree` and `git status --short` are blocked by Git's dubious-ownership protection; no global safe-directory setting was made.
+- [x] completed — repository root audit. Git operates normally; local and remote histories are linked, `main` tracks `origin/main`, and `architecture-v2` remains as a backup branch.
 - [x] completed — identified and remediated missing ignore rules for root `.studio/`, `.env*`, `.studio-phase4/`, and Phase 3 disposable output in `.gitignore`.
 - [x] completed — structural package audit: `pwsh -NoProfile -File scripts/test_phase4.ps1`; report: `.studio-phase4/reports/PACKAGE_AUDIT.md`.
 - [x] completed — platform packaging/schema and fallback verification: `docs/architecture/PHASE4_PLATFORM_VERIFICATION.md`.
