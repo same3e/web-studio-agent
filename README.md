@@ -50,11 +50,17 @@ Internal agents are selected automatically from the active project surface; they
 
 ### Claude Code
 
-Use Claude Code’s supported local-marketplace flow to add this checkout, install `web-studio-agent@web-studio-agent`, and reload plugins. The repository includes Claude marketplace and plugin manifests. See [INSTALL.md](INSTALL.md) for the detailed local-development, update, and uninstall process.
+```text
+/plugin marketplace add same3e/web-studio-agent
+/plugin install web-studio-agent@web-studio-agent
+/reload-plugins
+```
+
+Then run `/web-studio-agent:product-studio` or `/web-studio-agent:add-reference`. A new Claude Code session also reloads plugin metadata.
 
 ### Codex
 
-Use Codex’s local-plugin or plugin-manager flow with this checkout. The repository includes `.codex-plugin/plugin.json`; no exact Codex CLI or marketplace installation command is presented as runtime-tested. See [INSTALL.md](INSTALL.md) for details.
+Web Studio Agent is not yet published in the Codex Plugin Directory. Its Codex manifest is structurally validated, but public installation and local host discovery remain runtime-unverified. See [INSTALL.md](INSTALL.md) for the current local test procedure.
 
 ## Project data
 

@@ -1,64 +1,106 @@
 # Installation
 
-## Requirements
-
-- Codex desktop/CLI or Claude Code with plugin support.
-- A local checkout of this repository.
-- PowerShell 7 for the repository validation commands.
-
-## Verify the checkout
-
-Run the structural checks before attempting a host installation:
-
-```powershell
-pwsh -NoProfile -File scripts/validate_migration.ps1
-pwsh -NoProfile -File scripts/test_phase4.ps1
-```
-
-These validate manifests, skill structure, templates, knowledge routing, wrappers, and deterministic fixtures. They do not install the plugin or prove host skill discovery.
-
 ## Claude Code
 
-The checkout provides `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
+### Install from GitHub
 
-1. Use Claude Code’s supported local-marketplace flow to add this checkout.
-2. Install `web-studio-agent@web-studio-agent` at the scope you intend to use.
-3. Run `/reload-plugins` or start a new Claude Code session.
-4. Confirm that `product-studio` and `add-reference` are discoverable.
+The marketplace and plugin manifests both identify this plugin as `web-studio-agent`. In Claude Code, run:
 
-If the Claude CLI is available, `claude plugin validate .` is a useful additional check. Local marketplace installation and runtime discovery have not been verified by this repository’s deterministic suite.
+```text
+/plugin marketplace add same3e/web-studio-agent
+/plugin install web-studio-agent@web-studio-agent
+/reload-plugins
+```
+
+Equivalent terminal commands are:
+
+```bash
+claude plugin marketplace add same3e/web-studio-agent
+claude plugin install web-studio-agent@web-studio-agent
+```
+
+Start a new Claude Code session if the installed plugin is not immediately visible.
+
+### Verify the skills
+
+Run either command in Claude Code:
+
+```text
+/web-studio-agent:product-studio
+/web-studio-agent:add-reference
+```
+
+### Update
+
+```text
+/plugin marketplace update web-studio-agent
+/reload-plugins
+```
+
+### Uninstall
+
+```text
+/plugin uninstall web-studio-agent@web-studio-agent
+```
+
+Uninstalling the plugin must not delete project-local `.studio/`, the permanent personal reference library, or generated project files.
 
 ## Codex
 
-The checkout provides `.codex-plugin/plugin.json`, which exposes `./skills/`.
+### Current availability
 
-1. Use Codex’s supported local-plugin or plugin-manager flow to select this checkout.
-2. Start a new task after installation so the skill metadata is refreshed.
-3. Confirm that `product-studio` and `add-reference` are discoverable.
+Web Studio Agent is not yet published in the Codex Plugin Directory, so public one-click installation is not currently available. `.codex-plugin/plugin.json` and the package structure are structurally validated; real Codex installation, user-facing skill discovery, and native specialist loading remain unverified.
 
-No Codex CLI or marketplace installation command is claimed as runtime-tested here. The manifest and package structure are structurally validated; host installation, discovery, and native specialist loading still need a manual check in a compatible Codex environment.
+### Local development test
 
-## Local development
-
-Edit the checkout directly, then run the relevant validation. For a full deterministic regression pass:
+Prepare a checkout:
 
 ```powershell
+git clone https://github.com/same3e/web-studio-agent.git
+cd web-studio-agent
 pwsh -NoProfile -File scripts/validate_migration.ps1
-pwsh -NoProfile -File scripts/test_phase1_behavioral.ps1
-pwsh -NoProfile -File scripts/test_phase1_runtime.ps1
-pwsh -NoProfile -File scripts/test_phase2_contracts.ps1
-pwsh -NoProfile -File scripts/test_phase3.ps1
 pwsh -NoProfile -File scripts/test_phase4.ps1
 ```
 
-Project state belongs in `<project-root>/.studio/`. The permanent reference library is resolved from `WEB_STUDIO_AGENT_HOME` and defaults to `%USERPROFILE%\.web-studio-agent\` on Windows or `$HOME/.web-studio-agent/` on macOS/Linux.
+Then perform this manual runtime test:
 
-## Update and uninstall
+1. Open ChatGPT Codex Desktop and open **Plugins**.
+2. Select **Create a new plugin**.
+3. Check whether the current interface provides local-folder, repository-import, or upload import.
+4. If it does, select the cloned repository, start a new thread, and confirm `product-studio` and `add-reference` appear.
 
-Use the host’s update/remove action for the marketplace or local-plugin entry you added. Reload the plugin metadata or begin a new task after an update.
+Steps 3–4 are not yet completed runtime verification. If the interface has no local repository import, the remaining public distribution path is publication in the Codex Plugin Directory. Cloning the repository alone does not install the plugin.
 
-Uninstalling removes the host’s plugin entry. It does not delete a project’s `.studio/` directory or the personal reference library.
+### Public installation after directory publication
 
-## Runtime-verification limits
+After publication, the intended flow is: open Codex, open **Plugins**, find **Web Studio Agent**, review its two skills, install it, and start a new thread. This is not currently available for this plugin.
 
-The repository structurally validates package manifests and sequential fallback. Clean Codex installation, clean Claude installation, user-facing skill discovery, native specialist auto-loading, fresh-chat workflows, and real browser/API/database/performance checks require a compatible host runtime and remain separate manual verification steps.
+## Project data
+
+Project-specific decisions, selected references, approvals, plans, and reports live in `<project-root>/.studio/`.
+
+The permanent personal reference library is resolved from `WEB_STUDIO_AGENT_HOME`: `%USERPROFILE%\.web-studio-agent\` on Windows and `$HOME/.web-studio-agent/` on macOS/Linux. Removing a plugin does not remove either location.
+
+## Troubleshooting
+
+### Claude plugin is not visible
+
+1. Run `/plugin marketplace update web-studio-agent`.
+2. Run `/reload-plugins`.
+3. Start a new Claude Code session.
+4. Confirm the marketplace and plugin names are both `web-studio-agent`.
+5. From a repository checkout, run `claude plugin validate .` when the CLI is available.
+
+### Codex plugin is not visible
+
+Confirm the plugin was actually imported through the Codex interface or published in the Plugin Directory, restart Codex, start a new thread, and verify `.codex-plugin/plugin.json` exists. Cloning the repository does not install the plugin.
+
+## Runtime verification status
+
+- Manifests and package structure: structurally validated.
+- Deterministic repository tests: passed.
+- Claude plugin installed in a real host: not verified by this repository’s deterministic suite.
+- Codex plugin installed in a real host: not verified.
+- User-facing skills discovered in a real host: not verified.
+- Native agents loaded in a real host: not verified.
+- Sequential fallback: structurally tested.
