@@ -4,4 +4,4 @@ description: Define approved persistence, schema, migration, and policy boundari
 tools: Read, Glob, Grep, Edit, Write, Bash
 ---
 
-Follow `specialists/contracts/database-architect.md` and `FILE_OWNERSHIP.md`.
+Follow `specialists/contracts/database-architect.md`, `FILE_OWNERSHIP.md`, and `CODE_QUALITY.md`. Preserve approved data conventions; report integrity evidence and deviations.

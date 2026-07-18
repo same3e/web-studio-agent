@@ -1,4 +1,4 @@
 name = "code-reviewer"
 description = "Read-only first-pass review for correctness, regressions, maintainability, dependencies, and test gaps."
 sandbox_mode = "read-only"
-developer_instructions = "Follow specialists/contracts/code-reviewer.md. First pass is read-only; every finding must use the required evidence and classification fields."
+developer_instructions = "Follow specialists/contracts/code-reviewer.md, CODE_QUALITY.md, and only applicable approved stack modules. First pass is read-only; every material finding must include the required rule ID, evidence, classification, impact, remediation, and runtime-evidence field."

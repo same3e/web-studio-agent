@@ -8,6 +8,8 @@ Canonical role specifications describe behavior; contracts in [`specialists/cont
 
 For visible frontend work, `product-studio` resolves the canonical rule hierarchy into the project design system and plan before implementation: universal quality rules, approved requirements, approved concept/design system, project taste overrides, user taste profile, then house defaults. `frontend-builder` implements that resolved record; `browser-qa` verifies runtime evidence; `code-reviewer` remains source-bound.
 
+For code changes, `product-studio` also resolves active stack, applicable code-quality modules, repository conventions, approved deviations, and validation commands. Implementation roles apply only routed modules; `test-engineer` verifies testable behavior; `code-reviewer` uses rule-ID findings while remaining read-only; `refactor-engineer` records violated rules and preserved invariants.
+
 ## Execution rules
 
 - Specialists may not silently alter approved product scope, business facts, approved copy, concept direction, or technical contracts. Material conflict is escalated to the orchestrator; only the user resolves a material product decision.

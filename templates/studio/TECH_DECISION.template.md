@@ -22,6 +22,13 @@
 
 ## Local development, dependencies, deployment, and operations
 
+## Code-quality resolution
+
+- Existing repository conventions preserved:
+- Applicable canonical code-quality and stack modules:
+- Approved deviations and reason:
+- Required validation commands:
+
 ## Options (maximum three)
 
 ## Recommended option

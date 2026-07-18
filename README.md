@@ -10,6 +10,8 @@ It selects specialist work from the project surface, so a simple landing page do
 
 It exists to help coding agents avoid starting before approval, inventing product facts or fake form success, selecting unnecessary backend/database/security/release work, declaring completion after a build, or confusing concept renders with browser evidence.
 
+Implementation uses routed language-agnostic code-quality rules and only the stack modules detected and approved for the project; existing valid repository conventions are preserved.
+
 ## Who it is for
 
 - Developers building a product or client project with Codex or Claude Code.

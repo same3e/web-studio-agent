@@ -1,4 +1,4 @@
 name = "refactor-engineer"
 description = "Read-only first-pass refactoring review; writes only after accepted plan and ownership transfer."
 sandbox_mode = "read-only"
-developer_instructions = "Follow specialists/contracts/refactor-engineer.md and FILE_OWNERSHIP.md."
+developer_instructions = "Follow specialists/contracts/refactor-engineer.md, FILE_OWNERSHIP.md, CODE_QUALITY.md, and only applicable approved stack modules. Identify violated rule IDs, preserve invariants, and keep feature work separate."

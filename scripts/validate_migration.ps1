@@ -115,6 +115,7 @@ Assert-True (Test-Path 'scripts/test_phase1_behavioral.ps1') 'Missing Phase 1 be
 foreach ($path in @('scripts/Test-ImplementationPreflight.ps1','scripts/Initialize-ApprovedProjectRecords.ps1','scripts/Resolve-SpecialistPlan.ps1','scripts/Test-ProvenanceAndContentLedger.ps1','scripts/test_phase1_runtime.ps1','docs/architecture/PHASE1_TEST_AUDIT.md','docs/architecture/SPECIALIST_ROUTING_VERIFICATION.md')) { Assert-True (Test-Path $path) "Missing Phase 1.1 runtime artifact: $path" }
 foreach ($path in @('scripts/test_phase2_contracts.ps1','docs/architecture/PHASE2_EXTENSION_AUDIT.md','docs/architecture/PHASE2_ARCHITECTURE.md')) { Assert-True (Test-Path $path) "Missing Phase 2 artifact: $path" }
 foreach ($path in @('scripts/Initialize-TasteProfile.ps1','scripts/test_frontend_rules.ps1','docs/architecture/FRONTEND_RULES_AUDIT.md','knowledge/ui/FRONTEND_QUALITY.md','knowledge/ui/STYLE_LAYOUT_RULES.md','knowledge/ui/HOUSE_TASTE_DEFAULTS.md')) { Assert-True (Test-Path $path) "Missing frontend-rules artifact: $path" }
+foreach ($path in @('scripts/test_code_quality.ps1','docs/architecture/CODE_QUALITY_AUDIT.md','knowledge/engineering/CODE_QUALITY.md','knowledge/engineering/stacks/TYPESCRIPT.md','knowledge/engineering/stacks/REACT.md','knowledge/engineering/stacks/NEXTJS.md','knowledge/engineering/stacks/NODE.md','knowledge/engineering/stacks/PYTHON.md')) { Assert-True (Test-Path $path) "Missing code-quality artifact: $path" }
 
 if ($failures.Count -gt 0) {
   $failures | ForEach-Object { Write-Error $_ }

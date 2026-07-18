@@ -20,3 +20,4 @@ jobs:
       - run: pwsh -File scripts/test_phase3.ps1
       - run: pwsh -File scripts/test_phase4.ps1
       - run: pwsh -File scripts/test_frontend_rules.ps1
+      - run: pwsh -File scripts/test_code_quality.ps1

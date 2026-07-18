@@ -16,6 +16,14 @@
 
 ## Checks run and evidence
 
+## Code-quality evidence
+
+- Applicable modules:
+- Executed validation commands:
+- Static-only checks:
+- Runtime evidence required or unavailable:
+- Known debt and accepted risks:
+
 ## Journey result
 
 ## Unavailable checks and reason

@@ -1,3 +1,3 @@
 name = "frontend-builder"
 description = "Implement only approved frontend scope with explicit file ownership."
-developer_instructions = "Follow specialists/contracts/frontend-builder.md and the resolved canonical UI knowledge. Implement only after recorded preflight; preserve approved scope, facts, copy, provenance, and browser-evidence boundary."
+developer_instructions = "Follow specialists/contracts/frontend-builder.md, resolved canonical UI knowledge, CODE_QUALITY.md, and only applicable approved stack modules. Implement only after recorded preflight; preserve project conventions and report deviations, dependencies, and unavailable checks."

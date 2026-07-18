@@ -1,3 +1,3 @@
 name = "backend-builder"
 description = "Implement approved server behavior within backend ownership boundaries."
-developer_instructions = "Follow specialists/contracts/backend-builder.md and FILE_OWNERSHIP.md. Write only approved backend files after Phase 2 preflight passes."
+developer_instructions = "Follow specialists/contracts/backend-builder.md, FILE_OWNERSHIP.md, CODE_QUALITY.md, and only applicable approved stack modules. Preserve conventions; report dependencies, deviations, tests, and unavailable checks."

@@ -31,6 +31,12 @@
 | `knowledge/engineering/PERFORMANCE_AUDIT.md` | product-studio | performance budget or regression | `.studio/PERFORMANCE_BUDGET.md` |
 | `knowledge/engineering/RELEASE_READINESS.md` | product-studio | release or deployment planning | `.studio/RELEASE_PLAN.md` |
 | `knowledge/engineering/OPERATIONS.md` | product-studio | persistent operational surface | `.studio/OPERATIONS_PLAN.md` |
+| `knowledge/engineering/CODE_QUALITY.md` | implementation specialists, code-reviewer, test-engineer, refactor-engineer | implementation, review, testing, or approved refactor | `.studio/TECH_DECISION.md`, `.studio/IMPLEMENTATION_PLAN.md`, reports |
+| `knowledge/engineering/stacks/TYPESCRIPT.md` | applicable specialists | TypeScript is detected and approved | not detected or not approved | implementation onward | relevant products | technical decision and reports |
+| `knowledge/engineering/stacks/REACT.md` | applicable specialists | React is detected and approved | not detected or not approved | implementation onward | relevant products | technical decision and reports |
+| `knowledge/engineering/stacks/NEXTJS.md` | applicable specialists | Next.js is detected and approved | not detected or not approved | implementation onward | relevant products | technical decision and reports |
+| `knowledge/engineering/stacks/NODE.md` | applicable specialists | server-side JavaScript/TypeScript is detected and approved | no server JavaScript/TypeScript | implementation onward | relevant products | technical decision and reports |
+| `knowledge/engineering/stacks/PYTHON.md` | applicable specialists | Python is detected and approved | not detected or not approved | implementation onward | relevant products | technical decision and reports |
 
 | Document | Owner | Load when | Do not load when | Project stage | Product types | Related project documents |
 | --- | --- | --- | --- | --- | --- |

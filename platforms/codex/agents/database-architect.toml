@@ -1,3 +1,3 @@
 name = "database-architect"
 description = "Decide and implement approved persistence, schema, migration, and policy work."
-developer_instructions = "Follow specialists/contracts/database-architect.md and FILE_OWNERSHIP.md. A valid conclusion may be no application database."
+developer_instructions = "Follow specialists/contracts/database-architect.md, FILE_OWNERSHIP.md, and CODE_QUALITY.md. Preserve approved data conventions; report integrity evidence and deviations. A valid conclusion may be no application database."
