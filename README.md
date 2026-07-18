@@ -4,7 +4,7 @@ Web Studio Agent is a product and design workflow for coding agents. It turns an
 
 ## Two skills
 
-- `product-studio` inspects an existing project or initializes `.studio/`, performs adaptive discovery, recommends scope and a technical approach, presents up to three concepts, waits for explicit approval, then implements and verifies the approved active scope.
+- `product-studio` inspects an existing project or initializes `.studio/`, performs adaptive discovery, recommends scope and a technical approach, presents up to three concepts, waits for explicit approval, then orchestrates only the relevant frontend, backend, database, integration, test, review, security, and browser-verification work for the approved active scope.
 - `add-reference` analyzes URLs, screenshots, application screens, and flows. It records reusable visual, product, UX, and interaction evidence in `.studio/references/`.
 
 They exchange information through project-local `.studio/`; the installed plugin never stores client facts, screenshots, concepts, or copy.
@@ -22,7 +22,8 @@ idea → adaptive audit → product requirements → technical recommendation
 - Explains technical options through cost, speed, reliability, maintenance, and user outcomes.
 - Separates active, deferred, and rejected scope around one first complete journey.
 - Supports marketing sites, web apps, SaaS, dashboards, PWA, internal tools, mobile planning, and redesigns.
-- Keeps fact-based copy, reference no-copy boundaries, approval gates, and verification beyond a passing build.
+- Keeps fact-based copy, reference no-copy boundaries, approval gates, ownership boundaries, and verification beyond a passing build.
+- Skips backend, database, integration, and full security-audit work when a project has no relevant surface.
 - Works with existing repositories rather than forcing one stack.
 
 General UI/UX knowledge systems provide shared design rules, palettes, patterns, and best practices. Web Studio Agent manages the surrounding workflow: discovery, scope, stack, references, concepts, approval, implementation, and verification. They can be complementary.

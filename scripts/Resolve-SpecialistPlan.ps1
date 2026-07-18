@@ -1,47 +1,23 @@
 [CmdletBinding()]
-param(
-  [Parameter(Mandatory)][string]$ProjectRoot,
-  [string]$OutputPath
-)
-
-$ErrorActionPreference = 'Stop'
-$project = (Resolve-Path -LiteralPath $ProjectRoot).Path
-$statePath = Join-Path $project '.studio/PROJECT_STATE.md'
-$state = if (Test-Path -LiteralPath $statePath) { Get-Content -Raw -LiteralPath $statePath } else { '' }
-$hasExistingFrontend = (Test-Path (Join-Path $project 'package.json')) -or (Test-Path (Join-Path $project 'src')) -or (Test-Path (Join-Path $project 'app'))
-$documentationOnly = $state -match '(?im)^\s*-?\s*(?:Change type|Active surface):\s*.*(?:documentation-only|content-only)'
-
-$selected = [System.Collections.Generic.List[string]]::new()
-$skipped = [System.Collections.Generic.List[string]]::new()
-if ($documentationOnly) {
-  foreach($role in @('repo-explorer','frontend-builder','test-engineer','code-reviewer','browser-qa')) { $skipped.Add($role) }
-} else {
-  if ($hasExistingFrontend) { $selected.Add('repo-explorer') } else { $skipped.Add('repo-explorer') }
-  foreach($role in @('frontend-builder','test-engineer','code-reviewer','browser-qa')) { $selected.Add($role) }
+param([Parameter(Mandatory)][string]$ProjectRoot,[string]$OutputPath)
+$ErrorActionPreference='Stop'
+$project=(Resolve-Path -LiteralPath $ProjectRoot).Path;$statePath=Join-Path $project '.studio/PROJECT_STATE.md';$state=if(Test-Path $statePath){Get-Content -Raw $statePath}else{''}
+$existing=(Test-Path (Join-Path $project 'package.json')) -or (Test-Path (Join-Path $project 'src')) -or (Test-Path (Join-Path $project 'app'))
+$documentation=$state -match '(?im)^\s*-?\s*(?:Change type|Active surface):\s*.*(?:documentation-only|content-only)'
+$database=$state -match '(?im)^\s*-?\s*(?:Persistence|Database) required:\s*yes\b';$backend=$state -match '(?im)^\s*-?\s*(?:Backend|Server|API|Form delivery) required:\s*yes\b';$integration=$state -match '(?im)^\s*-?\s*(?:External integration|Integration) required:\s*yes\b';$authentication=$state -match '(?im)^\s*-?\s*Authentication required:\s*yes\b';$databaseOnly=$state -match '(?im)^\s*-?\s*(?:Change type|Active surface):\s*.*database-only'
+$security=$authentication -or $database -or $backend -or $integration -or ($state -match '(?im)^\s*-?\s*Sensitive data:\s*yes\b')
+$refactor=($state -match '(?im)^\s*-?\s*(?:Refactor|Structural remediation) required:\s*yes\b') -or ($state -match '(?im)^\s*-?\s*Change type:\s*.*refactor') -or ($state -match '(?im)prototype-to-maintainable|approved (?:framework|architectural) migration')
+$performance=($state -match '(?im)^\s*-?\s*(?:Performance|Measured performance) required:\s*yes\b') -or ($state -match '(?im)performance regression|heavy (?:frontend|media|backend|database|realtime|background-job)') -or (($state -match '(?im)production handoff') -and ($state -match '(?im)measured performance'))
+$release=($state -match '(?im)^\s*-?\s*(?:Release|Deployment|Production handoff) required:\s*yes\b') -or ($state -match '(?im)\b(?:CI|packaging|preview deployment|production deployment|domain|release)\b.*(?:in scope|required)') -or ($state -match '(?im)production\s+SaaS\s+handoff')
+$persistent=$database -or ($state -match '(?im)^\s*-?\s*(?:Operations|Persistent runtime) required:\s*yes\b') -or ($state -match '(?im)background jobs?|queues?|uptime|recovery|incident response')
+$operations=$persistent -and -not ($state -match '(?im)(?:local-only prototype|static (?:landing|marketing) site)')
+$selected=[Collections.Generic.List[string]]::new();$skipped=[Collections.Generic.List[string]]::new();$reasons=[ordered]@{}
+function Add-Role([string]$Role,[bool]$Selected,[string]$Reason){if($Selected){$script:selected.Add($Role)}else{$script:skipped.Add($Role)};$script:reasons[$Role]=$Reason}
+if($documentation){foreach($role in @('repo-explorer','frontend-builder','test-engineer','code-reviewer','browser-qa','backend-builder','database-architect','integration-builder','security-auditor','refactor-engineer','performance-auditor','release-engineer','operations-engineer')){Add-Role $role $false 'Documentation-only scope.'}}
+else {
+ Add-Role 'repo-explorer' $existing $(if($existing){'Existing implementation detected.'}else{'No existing frontend detected.'});Add-Role 'database-architect' $database $(if($database){'Persistent data declared.'}else{'No persistence surface.'});Add-Role 'backend-builder' $backend $(if($backend){'Backend/API/form delivery declared.'}else{'No backend surface.'});Add-Role 'integration-builder' $integration $(if($integration){'External integration declared.'}else{'No integration surface.'});Add-Role 'security-auditor' $security $(if($security){'Material auth/data/server/integration risk.'}else{'No material security surface.'});Add-Role 'refactor-engineer' $refactor $(if($refactor){'Explicit refactor or approved structural remediation.'}else{'Normal feature work has no separate refactor justification.'});Add-Role 'performance-auditor' $performance $(if($performance){'Performance evidence, risk, or criterion requires audit.'}else{'No material performance criterion or heavy surface.'});Add-Role 'release-engineer' $release $(if($release){'Release, deployment, CI, packaging, domain, or handoff is in scope.'}else{'No release scope.'});Add-Role 'operations-engineer' $operations $(if($operations){'Persistent runtime/data/jobs/operational surface declared.'}else{'Static/local-only or no meaningful persistent runtime.'});
+ if($databaseOnly){Add-Role 'frontend-builder' $false 'Database-only scope.';Add-Role 'test-engineer' $true 'Applicable tests follow implementation.';Add-Role 'code-reviewer' $true 'Review follows implementation.';Add-Role 'browser-qa' $false 'No visible surface.'}else{Add-Role 'frontend-builder' $true 'Approved implementation surface.';Add-Role 'test-engineer' $true 'Applicable tests follow implementation.';Add-Role 'code-reviewer' $true 'Review follows implementation.';Add-Role 'browser-qa' $true 'Visible surface requires browser QA when runnable.'}
 }
-
-$report = @(
-  '# Specialist plan',
-  '',
-  ('- Project root: `' + $project + '`'),
-  ('- Existing frontend detected: `' + $hasExistingFrontend + '`'),
-  ('- Documentation-only change: `' + $documentationOnly + '`'),
-  '- Execution fallback: `sequential if platform subagents are unavailable`',
-  '',
-  '## Selected specialists',
-  ($selected | ForEach-Object { '- `' + $_ + '`' }),
-  '',
-  '## Skipped specialists',
-  ($skipped | ForEach-Object { '- `' + $_ + '`' }),
-  '',
-  '## Rule sources',
-  '- `skills/product-studio/SKILL.md` — select only relevant internal roles; read-heavy work may be parallel only when safe.',
-  '- `docs/architecture/SPECIALIST_SYSTEM.md` — selection matrix and sequential fallback.'
-) -join [Environment]::NewLine
-
-if ($OutputPath) {
-  $dir = Split-Path -Parent $OutputPath
-  if ($dir) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
-  Set-Content -LiteralPath $OutputPath -Value $report -Encoding utf8
-}
-[pscustomobject]@{ Selected = @($selected); Skipped = @($skipped); ExistingFrontend = $hasExistingFrontend; DocumentationOnly = $documentationOnly; Report = $report }
+$report=@('# Specialist plan','',('- Project root: `'+$project+'`'),('- Existing frontend detected: `'+$existing+'`'),('- Documentation-only change: `'+$documentation+'`'),('- Active surfaces: database='+$database+'; backend='+$backend+'; integration='+$integration+'; authentication='+$authentication+'; refactor='+$refactor+'; performance='+$performance+'; release='+$release+'; operations='+$operations+'`'),'- Execution fallback: `sequential if platform subagents are unavailable`','','## Selected specialists',($selected|ForEach-Object{'- `'+$_+'` — '+$reasons[$_]}),'','## Skipped specialists',($skipped|ForEach-Object{'- `'+$_+'` — '+$reasons[$_]}),'','## Rule sources','- `skills/product-studio/SKILL.md` — adaptive selection and sequential fallback.','- `docs/architecture/SPECIALIST_SYSTEM.md` — canonical selection and ownership.') -join [Environment]::NewLine
+if($OutputPath){$dir=Split-Path -Parent $OutputPath;if($dir){New-Item -ItemType Directory -Force -Path $dir|Out-Null};Set-Content -LiteralPath $OutputPath -Value $report -Encoding utf8}
+[pscustomobject]@{Selected=@($selected);Skipped=@($skipped);Reasons=$reasons;ExistingFrontend=$existing;DocumentationOnly=$documentation;Report=$report}

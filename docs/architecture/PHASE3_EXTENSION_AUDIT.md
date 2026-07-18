@@ -1,0 +1,5 @@
+# Phase 3 extension audit
+
+Phase 3 extends [`specialists/contracts/FILE_OWNERSHIP.md`](../../specialists/contracts/FILE_OWNERSHIP.md), [`scripts/Resolve-SpecialistPlan.ps1`](../../scripts/Resolve-SpecialistPlan.ps1), [`scripts/Test-ImplementationPreflight.ps1`](../../scripts/Test-ImplementationPreflight.ps1), [`skills/product-studio/SKILL.md`](../../skills/product-studio/SKILL.md), [`skills/add-reference/SKILL.md`](../../skills/add-reference/SKILL.md), and project-local reference templates under [`templates/studio/references/`](../../templates/studio/references/). Phase 1/2 reports, sequential fallback, and two user-facing skills remain stable.
+
+Existing release/performance/deployment guidance is modular under `knowledge/engineering/`; project reference evidence is currently only `.studio/references/`. Write-capable refactor/release roles risk changing behavior or deployment state, so ownership transfer and no-deploy rules are required. A personal reference library must resolve outside plugin cache/source/project roots; tests must override its root. Earlier audits remain authoritative for Phase 1/2 detail.

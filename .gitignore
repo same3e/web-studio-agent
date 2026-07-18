@@ -1,7 +1,14 @@
 backups/
+.studio/
+.studio-phase4/
+.env
+.env.*
+!.env.example
 examples/**/.studio/references/inbox/
 examples/**/.studio/references/screenshots/
 .next/
 node_modules/
 *.log
 .phase1-test-output/
+.phase2-test-output/
+.phase3-test-output/

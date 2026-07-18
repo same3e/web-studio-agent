@@ -43,7 +43,7 @@ $existingPlan = & (Join-Path $root 'scripts/Resolve-SpecialistPlan.ps1') -Projec
 $docsPlan = & (Join-Path $root 'scripts/Resolve-SpecialistPlan.ps1') -ProjectRoot $docs
 if((@($landingPlan.Selected) -join ',') -ne 'frontend-builder,test-engineer,code-reviewer,browser-qa'){ throw 'Simple landing routing mismatch.' }
 if(@($existingPlan.Selected) -notcontains 'repo-explorer'){ throw 'Existing frontend did not select repo-explorer.' }
-if(@($docsPlan.Selected).Count -ne 0 -or @($docsPlan.Skipped).Count -ne 5){ throw 'Documentation-only routing mismatch.' }
+if(@($docsPlan.Selected).Count -ne 0 -or @($docsPlan.Skipped).Count -ne 13){ throw 'Documentation-only routing mismatch.' }
 
 # Provenance: no browser capture may not claim browser verification; complete capture passes.
 $prov = New-Project 'provenance' $true $true

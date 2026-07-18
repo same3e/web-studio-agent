@@ -16,3 +16,6 @@ jobs:
       - run: pwsh -File scripts/validate_migration.ps1
       - run: pwsh -File scripts/test_phase1_behavioral.ps1
       - run: pwsh -File scripts/test_phase1_runtime.ps1
+      - run: pwsh -File scripts/test_phase2_contracts.ps1
+      - run: pwsh -File scripts/test_phase3.ps1
+      - run: pwsh -File scripts/test_phase4.ps1

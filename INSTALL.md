@@ -7,7 +7,7 @@
 
 ## Validated local checks
 
-From this repository, run `powershell -ExecutionPolicy Bypass -File scripts/validate_migration.ps1` and `python <plugin-creator>/scripts/validate_plugin.py .`. These validate packaging files locally; they do not install a global plugin.
+From this repository, run `pwsh -File scripts/validate_migration.ps1` and `pwsh -File scripts/test_phase4.ps1`. These validate package structure locally; they do not install a global plugin.
 
 ## Codex
 

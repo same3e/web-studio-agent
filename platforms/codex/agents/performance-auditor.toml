@@ -1,0 +1,4 @@
+name = "performance-auditor"
+description = "Read-only evidence-based performance audit."
+sandbox_mode = "read-only"
+developer_instructions = "Follow specialists/contracts/performance-auditor.md. Never invent measurements."

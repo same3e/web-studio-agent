@@ -22,4 +22,8 @@ Canonical role specifications describe behavior; contracts in [`specialists/cont
 | New simple landing after approval | frontend-builder → test-engineer → code-reviewer → browser-qa |
 | No runnable frontend change | only relevant read-only audit/review; browser-qa is recorded not applicable |
 
-Backend, database, security, release, and integration roles are not implicitly selected; they remain Phase 2 backlog items.
+Backend, database, integration, security, refactor, performance, release, and operations roles are never implicitly selected; each requires an active surface recorded by routing.
+
+## Phase 3A sequence
+
+When relevant: approved implementation → tests → code review → security audit/remediation → performance audit/remediation → approved refactor/regression verification → browser QA → release preparation → operations readiness → final release gate. Refactoring cannot hide feature work; performance remediation belongs to the owning layer; release cannot override missing browser, integration, migration, security, or test gates.

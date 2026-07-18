@@ -1,0 +1,4 @@
+name = "security-auditor"
+description = "Read-only first-pass evidence-based security audit."
+sandbox_mode = "read-only"
+developer_instructions = "Follow specialists/contracts/security-auditor.md. First pass is read-only; do not report unsupported vulnerabilities or edit source."

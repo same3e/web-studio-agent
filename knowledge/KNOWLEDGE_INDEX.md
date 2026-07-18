@@ -13,6 +13,24 @@
 | --- | --- | --- | --- |
 | `knowledge/business/CONTENT_LEDGER.md` | product-studio | public copy, placeholders, forms, claims, or legal-link state | `.studio/CONTENT_LEDGER.md` |
 | `knowledge/verification/ARTIFACT_PROVENANCE.md` | product-studio | any concept image, asset, screenshot, browser QA, or final report | `.studio/ARTIFACT_LEDGER.md` |
+| `knowledge/engineering/API_BOUNDARIES.md` | product-studio | active API or server surface | `.studio/API_CONTRACT.md` |
+| `knowledge/engineering/SERVER_RELIABILITY.md` | product-studio | backend implementation | `.studio/BACKEND_SPEC.md` |
+| `knowledge/engineering/WEBHOOKS_AND_IDEMPOTENCY.md` | product-studio | webhook or retried write | `.studio/INTEGRATION_SPEC.md` |
+| `knowledge/engineering/BACKEND_OBSERVABILITY.md` | product-studio | backend logging or operations | `.studio/BACKEND_SPEC.md` |
+| `knowledge/engineering/DATABASE_DECISIONS.md` | product-studio | persistence decision | `.studio/DATABASE_DECISION.md` |
+| `knowledge/engineering/DATA_INTEGRITY.md` | product-studio | data model or schema | `.studio/DATA_MODEL.md` |
+| `knowledge/engineering/MIGRATIONS_AND_RETENTION.md` | product-studio | migrations or retention | `.studio/MIGRATION_PLAN.md` |
+| `knowledge/engineering/DATABASE_ACCESS.md` | product-studio | database access or tenancy | `.studio/SECURITY_MODEL.md` |
+| `knowledge/engineering/INTEGRATION_BOUNDARIES.md` | product-studio | external provider | `.studio/INTEGRATION_SPEC.md` |
+| `knowledge/engineering/INTEGRATION_RELIABILITY.md` | product-studio | retry, timeout, webhook, mock | `.studio/INTEGRATION_SPEC.md` |
+| `knowledge/engineering/PROVIDER_SECURITY.md` | product-studio | provider auth or secrets | `.studio/ENVIRONMENT_CONTRACT.md` |
+| `knowledge/safety/SECURITY_REVIEW.md` | product-studio | material security surface | `.studio/THREAT_MODEL.md` |
+| `knowledge/safety/APPLICATION_SECURITY.md` | product-studio | app security control | `.studio/SECURITY_MODEL.md` |
+| `knowledge/safety/SECURITY_OPERATIONS.md` | product-studio | secrets, data, dependencies | `.studio/SECURITY_MODEL.md` |
+| `knowledge/engineering/REFACTORING.md` | product-studio | approved refactor | `.studio/REFACTOR_PLAN.md` |
+| `knowledge/engineering/PERFORMANCE_AUDIT.md` | product-studio | performance budget or regression | `.studio/PERFORMANCE_BUDGET.md` |
+| `knowledge/engineering/RELEASE_READINESS.md` | product-studio | release or deployment planning | `.studio/RELEASE_PLAN.md` |
+| `knowledge/engineering/OPERATIONS.md` | product-studio | persistent operational surface | `.studio/OPERATIONS_PLAN.md` |
 
 | Document | Owner | Load when | Do not load when | Project stage | Product types | Related project documents |
 | --- | --- | --- | --- | --- | --- |
@@ -100,6 +118,14 @@
 | `knowledge/engineering/NOTIFICATIONS.md` | product-studio | relevant engineering task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |
 | `knowledge/engineering/FRONTEND.md` | product-studio | relevant engineering task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |
 | `knowledge/engineering/OFFLINE.md` | product-studio | relevant engineering task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |
+| `knowledge/engineering/refactoring/PLANNING.md` | product-studio | approved refactor or structural remediation | normal feature work | implementation-planning | existing implementation | `.studio/REFACTOR_PLAN.md` |
+| `knowledge/engineering/refactoring/VERIFICATION.md` | product-studio | approved refactor verification | no refactor | specialist-verification | existing implementation | `.studio/REFACTOR_VERIFICATION.md` |
+| `knowledge/engineering/performance/MEASUREMENT.md` | product-studio | performance criterion or regression | trivial/documentation scope | specialist-verification | relevant products | `.studio/PERFORMANCE_REPORT.md` |
+| `knowledge/engineering/performance/SURFACES.md` | product-studio | heavy frontend/backend/data/media/job surfaces | no material surface | implementation | relevant products | `.studio/PERFORMANCE_PLAN.md` |
+| `knowledge/engineering/release/READINESS.md` | product-studio | CI, release, deployment, domain, handoff | local-only prototype | handoff | relevant products | `.studio/RELEASE_PLAN.md` |
+| `knowledge/engineering/release/DEPLOYMENT.md` | product-studio | authorized deployment preparation | no release scope | handoff | relevant products | `.studio/DEPLOYMENT_MATRIX.md` |
+| `knowledge/engineering/operations/OBSERVABILITY.md` | product-studio | persistent runtime or material integration | static site | handoff | relevant products | `.studio/OBSERVABILITY_PLAN.md` |
+| `knowledge/engineering/operations/RECOVERY.md` | product-studio | production data/jobs/recovery needs | static site | handoff | relevant products | `.studio/BACKUP_RECOVERY.md` |
 | `knowledge/platforms/LANDING_PAGE.md` | product-studio | relevant platforms task or risk | unrelated read-only task | routed state | landing page | relevant .studio/ record |
 | `knowledge/platforms/ANDROID_APP.md` | product-studio | relevant platforms task or risk | unrelated read-only task | routed state | android app | relevant .studio/ record |
 | `knowledge/platforms/CROSS_PLATFORM_MOBILE.md` | product-studio | relevant platforms task or risk | unrelated read-only task | routed state | cross platform mobile | relevant .studio/ record |

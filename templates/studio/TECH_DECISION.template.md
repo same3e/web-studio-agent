@@ -12,6 +12,12 @@
 
 ## Backend, data, auth, content, forms, and integrations
 
+- Backend needed and linked record:
+- Persistence needed and linked record:
+- Authentication needed and linked record:
+- External services and linked record:
+- Sensitive-data classification and trust boundaries:
+
 ## SEO, accessibility, security, privacy, and testing
 
 ## Local development, dependencies, deployment, and operations

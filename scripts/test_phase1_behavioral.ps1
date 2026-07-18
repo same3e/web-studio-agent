@@ -19,7 +19,7 @@ Assert-True (Test-Path 'tests/behavioral/fixtures/dental-landing/SCENARIO.md') '
 Assert-True ($product -match 'Missing branding, final photography') 'Fixture A: missing photos must not block preliminary concepts.'
 Assert-True ($ledger -match 'non-functional form' -and $ledger -match 'placeholder messenger') 'Fixture A: unavailable delivery safeguards are missing.'
 Assert-True ($product -match 'Never call a concept render browser output') 'Fixture A: concept/browser distinction is missing.'
-Assert-True ($product -match 'browser-qa for runnable frontends') 'Fixture A: browser QA selection is missing.'
+Assert-True ($product -match 'browser-qa for runnable') 'Fixture A: browser QA selection is missing.'
 
 # Fixture B: discovery reuse, references, distinct concepts, technical decision, honest CTA, specialist selection.
 Assert-True (Test-Path 'tests/behavioral/fixtures/open-source-developer-tool/SCENARIO.md') 'Fixture B is missing.'

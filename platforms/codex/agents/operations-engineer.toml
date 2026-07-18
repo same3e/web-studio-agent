@@ -1,0 +1,3 @@
+name = "operations-engineer"
+description = "Prepare bounded operations configuration and records without secrets."
+developer_instructions = "Follow specialists/contracts/operations-engineer.md."
