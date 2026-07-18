@@ -4,10 +4,10 @@ Four coordinated skills for running a small, fact-based web studio in Codex and 
 
 ## Workflow
 
-1. `studio-setup` — prepares the studio knowledge base, templates, reference library, and project folders.
-2. `add-reference` — analyzes website URLs, screenshots, and images and stores reusable reference notes.
-3. `new-site-project` — gathers business facts, selects references, and presents three concepts before implementation.
-4. `build-site` — implements only an approved concept, verifies the result, and writes a build report.
+1. `studio-setup` - prepares the studio knowledge base, templates, reference library, and project folders.
+2. `add-reference` - analyzes website URLs, screenshots, and images and stores reusable reference notes.
+3. `new-site-project` - gathers business facts, selects references, and presents three concepts before implementation.
+4. `build-site` - implements only an approved concept, verifies the result, and writes a build report.
 
 The system has approval gates: it does not invent commercial claims and does not start implementation before a concept is approved.
 
