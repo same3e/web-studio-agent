@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Studio"
+  short_description: "Create, approve, implement, and verify digital products"
+  default_prompt: "Use $product-studio to turn this product idea into an approved and verified project."

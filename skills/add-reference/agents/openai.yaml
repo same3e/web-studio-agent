@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add Reference"
+  short_description: "Analyze and index website and app references"
+  default_prompt: "Use $add-reference to analyze these product or design references for this project."

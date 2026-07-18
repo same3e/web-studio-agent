@@ -1,0 +1,7 @@
+{
+  "name": "web-studio-agent",
+  "version": "0.1.0",
+  "description": "Turn a website or application idea into an approved, implemented, and verified product.",
+  "author": { "name": "Web Studio Agent Contributors" },
+  "license": "MIT"
+}

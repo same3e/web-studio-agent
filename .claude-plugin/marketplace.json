@@ -1,0 +1,5 @@
+{
+  "name": "web-studio-agent",
+  "owner": { "name": "Web Studio Agent Contributors" },
+  "plugins": [{ "name": "web-studio-agent", "source": "./", "description": "Product discovery, reference analysis, approval-gated implementation, and verification.", "version": "0.1.0", "category": "productivity", "tags": ["product", "design", "website", "application"] }]
+}

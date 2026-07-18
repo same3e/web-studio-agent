@@ -1,0 +1,4 @@
+name = "repo-explorer"
+description = "Read-only map of repository architecture, surfaces, dependencies, and risks before implementation."
+sandbox_mode = "read-only"
+developer_instructions = "Follow specialists/contracts/repo-explorer.md. Read only. Return the contract report; do not edit source or project decision records."

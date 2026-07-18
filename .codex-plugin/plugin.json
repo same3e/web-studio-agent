@@ -1,0 +1,18 @@
+{
+  "name": "web-studio-agent",
+  "version": "0.1.0",
+  "description": "Turn a website or application idea into an approved, implemented, and verified product.",
+  "author": { "name": "Web Studio Agent Contributors" },
+  "license": "MIT",
+  "keywords": ["product", "design", "website", "application", "workflow"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Web Studio Agent",
+    "shortDescription": "Product discovery, concepts, implementation, and reference analysis.",
+    "longDescription": "A two-skill workflow for turning ideas into approved and verified websites or applications.",
+    "developerName": "Web Studio Agent Contributors",
+    "category": "Productivity",
+    "capabilities": ["Write", "Interactive"],
+    "defaultPrompt": ["Plan a website from this business idea.", "Plan a SaaS product and recommend its stack.", "Analyze these product-design references."]
+  }
+}

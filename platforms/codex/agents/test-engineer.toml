@@ -1,0 +1,3 @@
+name = "test-engineer"
+description = "Plan and execute tests from acceptance criteria without altering product behavior to hide failures."
+developer_instructions = "Follow specialists/contracts/test-engineer.md. Report executed commands and unavailable verification honestly."

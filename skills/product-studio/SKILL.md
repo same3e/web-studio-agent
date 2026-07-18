@@ -1,0 +1,44 @@
+---
+name: product-studio
+description: Plan, approve, implement, and verify a website, landing page, web app, SaaS, dashboard, PWA, internal tool, mobile-app plan, or redesign. Use for end-to-end product work; not for isolated fixes, single copy edits, read-only explanations, or reference-only tasks.
+---
+
+# Product studio
+
+## Orchestration contract
+
+1. Inspect the repository, manifests, existing documentation, code, and `.studio/` before asking questions. Reuse confirmed information.
+2. Read `knowledge/KNOWLEDGE_INDEX.md`; identify task, project state, product type, active risks/features, then load only routed documents.
+3. If `.studio/` is absent, initialize missing project-local files from `templates/studio/` without overwriting existing material. Report the initialization briefly.
+4. Determine state from `.studio/PROJECT_STATE.md` and linked evidence—not chat history. Follow: `uninitialized → discovery → requirements → technical-decision → references-needed → concepts → awaiting-approval → approved → implementation-planning → implementation → specialist-verification → remediation → final-verification → handoff → complete`.
+5. Start discovery with an inference-first summary: confirmed facts, safe provisional assumptions, technical recommendations, unsupported public claims, blocking gaps, and non-blocking gaps. State what can already be inferred; reuse conversation and project-record answers. Recommend a reasonable default with correction path rather than asking an open question where one exists. Missing branding, final photography, testimonials, pricing, analytics, CRM, CMS, or legal copy does not block preliminary concepts; use honest placeholders.
+6. Define the first complete journey in `USER_FLOWS.md` and `ACCEPTANCE_CRITERIA.md`; separate active, deferred, and rejected scope before concepts.
+7. Write up to three genuinely different concepts. Stop for explicit approval. Positive but vague feedback is not approval.
+8. After explicit approval, record the decision in `APPROVED_CONCEPT.md`, automatically prepare `COPY.md`, `DESIGN_SYSTEM.md`, `IMPLEMENTATION_PLAN.md`, and `ACCEPTANCE_CRITERIA.md`, then run `IMPLEMENTATION_PREFLIGHT.md`. If approval also requested implementation, continue without a second approval prompt unless the user asked to stop.
+9. Preflight marks each relevant record required, optional, or not applicable with a reason and blocks implementation on missing or inconsistent required evidence. Implement only approved active scope. Preserve existing valid technology unless a documented, user-visible benefit justifies a change.
+10. Select only relevant internal roles from `specialists/specs/`: use repo-explorer for unknown existing code, frontend-builder for approved frontend work, test-engineer for applicable tests, code-reviewer after implementation, and browser-qa for runnable frontends. Read-heavy roles may run in parallel only when their output contracts do not conflict; writers are sequential by default. If subagents are unavailable, execute the same stages sequentially and record reports in `.studio/reports/`.
+11. Use `.studio/CONTENT_LEDGER.md` for public claims/placeholders and `.studio/ARTIFACT_LEDGER.md` for every visual artifact. Never call a concept render browser output.
+12. Run the smallest complete validation for the active scope. Record actual evidence and unavailable checks in `VERIFICATION_REPORT.md` and `BUILD_REPORT.md`; final reporting separates concept, source-code, build, browser-verification, and production-blocker status. Never claim completion with a broken critical journey.
+
+## Boundaries
+
+- Use `add-reference` for full reference intake, duplicate detection, or reanalysis. Product-studio may request reference types and read project-local analyses/indexes.
+- Project facts, screenshots, references, concepts, copy, and generated documents live only in `<project-root>/.studio/`, never in plugin/skill directories.
+- Apply the decision hierarchy in `knowledge/core/DECISION_HIERARCHY.md` and approval/factual/no-copy gates before implementation.
+- For marketing heroes, apply the H1-first rule only when the product has a hero; never impose it on application screens.
+
+## Required outputs by state
+
+| State | Minimum evidence |
+| --- | --- |
+| discovery | `PROJECT_BRIEF.md`, `CONFIRMED_FACTS.md`, `ASSUMPTIONS.md`, audience understanding |
+| requirements | roles/flows where relevant, `PRODUCT_SPEC.md`, active/deferred scope, first complete journey |
+| technical-decision | `TECH_DECISION.md` with up to three options and one recommendation |
+| references-needed | request or explicit bypass recorded; project-local reference index inspected |
+| concepts | `concepts/CONCEPTS.md` with product, UX, visual, content, and technical trade-offs |
+| awaiting-approval | explicit pending approval recorded; no implementation starts |
+| approved | `APPROVED_CONCEPT.md`, `COPY.md`, `DESIGN_SYSTEM.md`, plan, acceptance criteria |
+| implementation-planning | passed `IMPLEMENTATION_PREFLIGHT.md` with required/optional/not-applicable record reasons |
+| implementation | changes mapped to approved active scope and journey; specialist ownership respected |
+| specialist-verification / remediation | applicable specialist reports, actual test/browser evidence, and tracked remediation |
+| final-verification / handoff / complete | verification and build reports with commands, results, limits, factual/no-copy checks, and provenance |

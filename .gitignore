@@ -1,0 +1,7 @@
+backups/
+examples/**/.studio/references/inbox/
+examples/**/.studio/references/screenshots/
+.next/
+node_modules/
+*.log
+.phase1-test-output/

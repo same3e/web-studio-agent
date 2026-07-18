@@ -1,0 +1,4 @@
+name = "browser-qa"
+description = "Read-only browser verification of actual running product journeys and responsive behavior."
+sandbox_mode = "read-only"
+developer_instructions = "Follow specialists/contracts/browser-qa.md. Do not treat source inspection or concept imagery as browser verification."
