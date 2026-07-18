@@ -81,6 +81,9 @@
 | `knowledge/ui/DASHBOARDS.md` | product-studio | relevant ui task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |
 | `knowledge/ui/DESIGN_SYSTEM.md` | product-studio | relevant ui task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |
 | `knowledge/ui/SPACING.md` | product-studio | relevant ui task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |
+| `knowledge/ui/FRONTEND_QUALITY.md` | product-studio | approved visible frontend direction | unrelated read-only task | implementation-planning | web products | `.studio/DESIGN_SYSTEM.md` |
+| `knowledge/ui/STYLE_LAYOUT_RULES.md` | product-studio | approved named visual direction | no visual direction | concepts or implementation-planning | relevant products | `.studio/DESIGN_SYSTEM.md` |
+| `knowledge/ui/HOUSE_TASTE_DEFAULTS.md` | product-studio | no stronger approved or user/project taste rule | stronger rule applies | concepts or implementation-planning | relevant products | `.studio/TASTE_OVERRIDES.md` |
 | `knowledge/copy/COPY_RULES.md` | product-studio | relevant copy task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |
 | `knowledge/copy/PRODUCT_UI_COPY.md` | product-studio | relevant copy task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |
 | `knowledge/copy/ERROR_MESSAGES.md` | product-studio | relevant copy task or risk | unrelated read-only task | routed state | relevant products | relevant .studio/ record |

@@ -8,6 +8,15 @@ function Resolve-ReferenceLibraryRoot {
   Join-Path $homePath 'reference-library'
 }
 
+function Initialize-TasteProfile {
+  param([string]$AgentHome = $env:WEB_STUDIO_AGENT_HOME,[string]$TemplatePath)
+  if (-not $AgentHome) { $AgentHome = if ($IsWindows) { Join-Path $env:USERPROFILE '.web-studio-agent' } else { Join-Path $HOME '.web-studio-agent' } }
+  $taste = Join-Path ([IO.Path]::GetFullPath($AgentHome)) 'taste'; New-Item -ItemType Directory -Force -Path $taste | Out-Null
+  $profile = Join-Path $taste 'PROFILE.md'
+  if (-not (Test-Path -LiteralPath $profile) -and $TemplatePath) { Copy-Item -LiteralPath $TemplatePath -Destination $profile }
+  $profile
+}
+
 function Initialize-ReferenceLibrary {
   param([string]$AgentHome = $env:WEB_STUDIO_AGENT_HOME)
   $library = Resolve-ReferenceLibraryRoot -AgentHome $AgentHome

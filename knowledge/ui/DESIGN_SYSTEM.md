@@ -12,7 +12,7 @@ Define tokens, typography scale, spacing, color roles, components, states, focus
 
 ## Applied rule
 
-Define tokens, typography scale, spacing, color roles, components, states, focus, motion, responsive behavior, and content density before repeated implementation diverges.
+Define tokens, typography scale, spacing, color roles, components, states, focus, motion, responsive behavior, and content density before repeated implementation diverges. Resolve universal rules, approved project rules, approved concept, project overrides, user taste profile, and house defaults in that order; record material exceptions and their required browser verification.
 
 ## Project record
 

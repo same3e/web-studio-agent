@@ -12,7 +12,7 @@ Test relevant widths/devices, overflow, navigation, inputs, media, density, loca
 
 ## Applied rule
 
-Test relevant widths/devices, overflow, navigation, inputs, media, density, locale length, and touch behavior for active surfaces.
+Use actual runtime evidence to test representative widths, overflow, clipping, navigation, inputs, media crop, density, locale/long-copy behavior, touch targets, sticky overlap, and mobile recomposition. For complex pages include 360–390px, about 430px, about 768px, 1024–1280px, 1440px+, and material breakpoints; record route, viewport, capture, finding, rule ID, severity, and remediation owner.
 
 ## Project record
 

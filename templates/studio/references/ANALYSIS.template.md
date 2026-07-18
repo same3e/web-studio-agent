@@ -22,3 +22,8 @@
 - Reusable principles:
 - Risks and anti-patterns:
 - Elements that must not be copied:
+
+## Approved decision map
+
+| Reference ID | Observed principle | Affected section / component | Adaptation for this product | Element explicitly not copied | Interaction or layout implication |
+| --- | --- | --- | --- | --- | --- |

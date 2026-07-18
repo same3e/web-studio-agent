@@ -12,7 +12,7 @@ Specify responsive priority, navigation, typography, data density, image behavio
 
 ## Applied rule
 
-Specify responsive priority, navigation, typography, data density, image behavior, and interaction changes per active surface.
+Specify responsive priority, navigation, typography, data density, image focal crop, content order, canceled overlaps, sticky behavior, stacking, and long-copy handling per active surface. Mobile is a recomposition, not a scaled desktop; keep logical DOM order and prevent clipping/overflow.
 
 ## Project record
 

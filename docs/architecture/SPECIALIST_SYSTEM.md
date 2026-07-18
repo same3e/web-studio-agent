@@ -6,6 +6,8 @@
 
 Canonical role specifications describe behavior; contracts in [`specialists/contracts/`](../../specialists/contracts/) define inputs, ownership, and completion evidence. Knowledge packs in [`knowledge/`](../../knowledge/) define reusable rules. Validators in [`scripts/`](../../scripts/) make deterministic checks. Project-local `.studio/` records remain the source of truth. Platform files in [`platforms/`](../../platforms/) are thin launch wrappers, never a second methodology source.
 
+For visible frontend work, `product-studio` resolves the canonical rule hierarchy into the project design system and plan before implementation: universal quality rules, approved requirements, approved concept/design system, project taste overrides, user taste profile, then house defaults. `frontend-builder` implements that resolved record; `browser-qa` verifies runtime evidence; `code-reviewer` remains source-bound.
+
 ## Execution rules
 
 - Specialists may not silently alter approved product scope, business facts, approved copy, concept direction, or technical contracts. Material conflict is escalated to the orchestrator; only the user resolves a material product decision.
