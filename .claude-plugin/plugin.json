@@ -1,0 +1,9 @@
+{
+  "name": "web-studio-agent",
+  "version": "0.1.0",
+  "description": "A fact-based workflow for planning, referencing, and building client websites.",
+  "author": { "name": "same3e", "url": "https://github.com/same3e" },
+  "homepage": "https://github.com/same3e/web-studio-agent",
+  "repository": "https://github.com/same3e/web-studio-agent",
+  "license": "MIT"
+}

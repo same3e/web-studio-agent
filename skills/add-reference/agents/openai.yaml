@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add Reference"
+  short_description: "Analyze and catalog web design references"
+  default_prompt: "Use $add-reference to catalog this site or these screenshots as a design reference."

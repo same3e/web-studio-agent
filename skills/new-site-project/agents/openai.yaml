@@ -1,0 +1,4 @@
+interface:
+  display_name: "New Site Project"
+  short_description: "Brief and approve a client website concept"
+  default_prompt: "Use $new-site-project to start a client website project from this brief."

@@ -1,0 +1,12 @@
+# Local studio data and generated output
+inbox/
+references/
+projects/
+outputs/
+backups/
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+*.pyc

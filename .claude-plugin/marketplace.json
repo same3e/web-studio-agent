@@ -1,0 +1,6 @@
+{
+  "name": "web-studio-agent",
+  "owner": { "name": "same3e", "url": "https://github.com/same3e" },
+  "metadata": { "description": "A reusable web-studio workflow for Claude Code." },
+  "plugins": [{ "name": "web-studio-agent", "source": "./" }]
+}

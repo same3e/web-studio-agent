@@ -1,0 +1,4 @@
+interface:
+  display_name: "Studio Setup"
+  short_description: "Initialize and maintain web studio system"
+  default_prompt: "Use $studio-setup to initialize or update this web-studio workspace."

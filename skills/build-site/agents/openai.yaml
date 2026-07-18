@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Site"
+  short_description: "Implement and verify an approved website"
+  default_prompt: "Use $build-site to implement and verify the approved project in this folder."

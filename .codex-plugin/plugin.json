@@ -1,0 +1,22 @@
+{
+  "name": "web-studio-agent",
+  "version": "0.1.0",
+  "description": "A fact-based workflow for planning, referencing, and building client websites.",
+  "author": { "name": "same3e", "url": "https://github.com/same3e" },
+  "homepage": "https://github.com/same3e/web-studio-agent",
+  "repository": "https://github.com/same3e/web-studio-agent",
+  "license": "MIT",
+  "keywords": ["web-studio", "website-planning", "references", "frontend"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Web Studio Agent",
+    "shortDescription": "Plan and build fact-based client websites",
+    "longDescription": "Four coordinated skills for studio setup, reference analysis, new-site planning, and approved website implementation.",
+    "developerName": "same3e",
+    "category": "Productivity",
+    "capabilities": ["Planning", "Reference analysis", "Website implementation"],
+    "websiteURL": "https://github.com/same3e/web-studio-agent",
+    "defaultPrompt": ["Set up this folder as a web studio", "Process new website references", "Plan a new client website"],
+    "brandColor": "#1F2937"
+  }
+}
