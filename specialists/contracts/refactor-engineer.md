@@ -7,3 +7,4 @@
 - **Output schema:** goal; violated rule IDs; invariant; affected files; ownership; target structure; dependency change; migration/rollback; commands/evidence; structural improvement; remaining debt; user-visible change; gaps.
 - **Gate / escalation / remediation:** complete only after actual invariant evidence; escalate behavior/API/persistence/cost/deployment changes; remediation owner is the transferred layer owner.
 - **Parallel / fallback / unavailable evidence:** read-only planning may parallelize; writes sequential. Fallback uses identical plan and handoff; unavailable runtime evidence is `unverified`, never preserved behavior.
+- **Context:** use the compiled role manifest when available; request missing invariants or ownership sources explicitly, do not load excluded history without reason, and return a compact delta.

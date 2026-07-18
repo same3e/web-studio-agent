@@ -6,3 +6,4 @@
 - **Forbidden:** invented credentials/endpoints; fake provider success; paid-service additions without approval; hardwired providers without justified adapter; unavailable integration presented as live.
 - **Report:** `Provider purpose`; `Existing conventions preserved`; `Applicable modules`; `Data boundary`; `Environment status`; `Retries/timeouts/idempotency`; `Webhook verification`; `Failure state`; `Dependencies`; `Tests and unavailable checks`; `Material deviations`; `Blockers`.
 - **Parallel safety / gate:** write-heavy after contracts and environment decision. Escalate credential setup, paid vendor, production endpoint, or missing failure behavior.
+- **Context:** use the compiled role manifest when available; request missing contracts explicitly, avoid excluded history without reason, and return a compact delta.

@@ -14,6 +14,7 @@ description: Analyze, classify, index, deduplicate, or reanalyze website and app
 5. Write specific observations to individual analyses and maintain project-local reference, style, industry, product-pattern, and UX-pattern indexes. Reanalysis updates the existing record with a dated note rather than silently discarding prior evidence.
 6. Use `scripts/Add-ReferenceLibraryItem.ps1` for local-file or URL-metadata ingest and `scripts/Find-ReferenceLibraryMatch.ps1` for matching. Detect deterministic exact file-hash and normalized-URL duplicates, link an existing stable ID rather than copying it, generate indexes, and report the library path and outcome. Do not claim perceptual matching unless implemented.
 7. Record reusable principles, risks, anti-patterns, and no-copy boundaries. Never retain copied source code, cookies, tokens, private data, full original site copy, or unauthorized downloadable assets.
+7a. When a reference is selected for an approved project, create or update a compact project-local card under `.studio/references/cards/` that points to the full analysis, records only observed principles and no-copy boundaries, and is routed only to relevant visual roles.
 8. Do not delete original inputs without explicit user permission. Do not automatically commit private screenshots.
 
 ## Analysis minimum

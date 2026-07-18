@@ -6,4 +6,5 @@
 - **Forbidden:** hiding failures, changing business scope, calling static inspection executed verification, or claiming readability, architecture, or visual quality from tests.
 - **Report:** `Plan`; `Commands`; `Passed`; `Failed`; `Not run`; `Static-only checks`; `Unverified areas`; `Remediation request`.
 - **Parallel safety:** test-file writes are sequential with implementation unless ownership is explicitly distinct; read-only planning may be parallel.
+- **Context:** use the compiled role manifest when available; request missing criteria, contracts, or test commands explicitly, do not infer omitted facts, and return a compact delta.
 - **Completion / escalation:** complete with actual command results or precise blocked reason. Escalate ambiguous criteria, missing runnable command, or behavior defect requiring product decision.

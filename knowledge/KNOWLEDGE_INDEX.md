@@ -9,6 +9,9 @@
 
 ## Phase 1 specialist routes
 
+| `knowledge/context/CONTEXT_COMPILATION.md` | product-studio | context compilation, orchestration, role routing, or context-budget decision | `.studio/PROJECT_SNAPSHOT.md`, `.studio/REPO_MAP.json`, `.studio/context/` |
+| `knowledge/context/DELTA_REPORT_SCHEMA.md` | internal specialists | specialist completion or downstream handoff | `.studio/reports/` |
+
 | Document | Owner | Load when | Project record |
 | --- | --- | --- | --- |
 | `knowledge/business/CONTENT_LEDGER.md` | product-studio | public copy, placeholders, forms, claims, or legal-link state | `.studio/CONTENT_LEDGER.md` |

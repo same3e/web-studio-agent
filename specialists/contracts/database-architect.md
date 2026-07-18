@@ -6,3 +6,4 @@
 - **Forbidden:** inventing entities; infrastructure merely for a form; production credentials; hidden destructive migration risk; weak access controls; application-only substitutes for needed constraints.
 - **Report:** `Persistence decision`; `Existing conventions preserved`; `Storage classification`; `Schema/policy`; `Migration/rollback`; `Retention`; `Contract and data-integrity evidence`; `Material deviations`; `Risks`; `Not applicable reason`.
 - **Parallel safety / gate:** decisions precede backend writes; schema writes sequential. Escalate irreversible migration, sensitive data, or unresolved data ownership.
+- **Context:** use the compiled role manifest when available; request missing required sources explicitly, avoid excluded visual/history context, and return a compact delta.

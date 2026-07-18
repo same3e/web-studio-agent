@@ -12,6 +12,8 @@ It exists to help coding agents avoid starting before approval, inventing produc
 
 Implementation uses routed language-agnostic code-quality rules and only the stack modules detected and approved for the project; existing valid repository conventions are preserved.
 
+It compiles role-specific context in lean, standard, or thorough modes, avoids irrelevant history, and labels context counts as approximate. Canonical project records remain the source of truth.
+
 ## Who it is for
 
 - Developers building a product or client project with Codex or Claude Code.

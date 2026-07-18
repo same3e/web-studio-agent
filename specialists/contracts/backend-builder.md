@@ -6,3 +6,4 @@
 - **Forbidden:** unapproved auth/database/UX/form fields/integrations; secret exposure; bypassing database contract; weakening security.
 - **Report:** `Approved inputs`; `Existing conventions preserved`; `Applicable modules`; `Files changed`; `Server capabilities`; `API contract status`; `Dependencies`; `Material deviations`; `Tests and unavailable checks`; `Unresolved blockers`.
 - **Parallel safety / gate:** write-heavy and sequential after database/API decisions. Complete only with owned work mapped to criteria; escalate missing contract, material scope, or unavailable evidence.
+- **Context:** use the compiled role manifest when available; request missing required sources explicitly, avoid excluded history without reason, and return a compact delta without fabricating omitted information.

@@ -12,3 +12,7 @@ node_modules/
 .phase1-test-output/
 .phase2-test-output/
 .phase3-test-output/
+.studio/runtime/
+.studio/REPO_MAP.json
+.studio/context/RESOLVED_RULES.json
+.studio/context/RESOLVED_RULES.md
