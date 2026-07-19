@@ -7,6 +7,9 @@ on:
 
 jobs:
   plugin:
+    permissions:
+      contents: read
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,6 +17,7 @@ jobs:
         with: { python-version: '3.12' }
       - run: pip install pyyaml
       - run: pwsh -File scripts/validate_migration.ps1
+      - run: pwsh -File scripts/test_powershell_syntax.ps1
       - run: pwsh -File scripts/test_phase1_behavioral.ps1
       - run: pwsh -File scripts/test_phase1_runtime.ps1
       - run: pwsh -File scripts/test_phase2_contracts.ps1
@@ -24,3 +28,5 @@ jobs:
       - run: pwsh -File scripts/test_context_efficiency.ps1
       - run: pwsh -File scripts/context/build_rule_route_index.ps1 -Check
       - run: pwsh -File scripts/test_false_guarantees.ps1
+      - run: pwsh -File scripts/test_runtime_and_specialist_orchestration.ps1
+      - run: git diff --check

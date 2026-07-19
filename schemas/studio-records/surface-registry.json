@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "surfaces": [
+    {"id":"frontend-visible","requiredRecords":["DESIGN_SYSTEM.md"],"optionalRecords":["COPY.md"],"defaultSpecialists":["frontend-builder","test-engineer","code-reviewer","browser-qa"],"securityRelevant":false,"visible":true,"runnableRelevant":true},
+    {"id":"frontend-nonvisual","requiredRecords":[],"optionalRecords":[],"defaultSpecialists":["frontend-builder","test-engineer","code-reviewer"],"securityRelevant":false,"visible":false,"runnableRelevant":false},
+    {"id":"backend-api","requiredRecords":["BACKEND_SPEC.md","API_CONTRACT.md"],"optionalRecords":[],"defaultSpecialists":["backend-builder","test-engineer","code-reviewer"],"securityRelevant":true,"visible":false,"runnableRelevant":true},
+    {"id":"server-job","requiredRecords":["BACKEND_SPEC.md"],"optionalRecords":[],"defaultSpecialists":["backend-builder","test-engineer","code-reviewer"],"securityRelevant":false,"visible":false,"runnableRelevant":true},
+    {"id":"database","requiredRecords":["DATABASE_DECISION.md","DATA_MODEL.md","MIGRATION_PLAN.md"],"optionalRecords":["DATA_RETENTION.md"],"defaultSpecialists":["database-architect","backend-builder","test-engineer","code-reviewer"],"securityRelevant":true,"visible":false,"runnableRelevant":true},
+    {"id":"integration","requiredRecords":["INTEGRATION_SPEC.md","EXTERNAL_SERVICES.md","ENVIRONMENT_CONTRACT.md"],"optionalRecords":[],"defaultSpecialists":["integration-builder","test-engineer","code-reviewer"],"securityRelevant":true,"visible":false,"runnableRelevant":true},
+    {"id":"authentication","requiredRecords":["THREAT_MODEL.md","SECURITY_MODEL.md"],"optionalRecords":[],"defaultSpecialists":["security-auditor"],"securityRelevant":true,"visible":false,"runnableRelevant":true},
+    {"id":"sensitive-data","requiredRecords":["THREAT_MODEL.md","SECURITY_MODEL.md"],"optionalRecords":[],"defaultSpecialists":["security-auditor"],"securityRelevant":true,"visible":false,"runnableRelevant":true},
+    {"id":"release","requiredRecords":["RELEASE_PLAN.md","RELEASE_CHECKLIST.md","ROLLBACK_PLAN.md"],"optionalRecords":["DEPLOYMENT_MATRIX.md","CHANGELOG_PLAN.md"],"defaultSpecialists":["release-engineer"],"securityRelevant":false,"visible":false,"runnableRelevant":false},
+    {"id":"operations","requiredRecords":["OPERATIONS_PLAN.md","OBSERVABILITY_PLAN.md","HEALTH_CHECKS.md","INCIDENT_RESPONSE.md","RUNBOOK.md"],"optionalRecords":["BACKUP_RECOVERY.md"],"defaultSpecialists":["operations-engineer"],"securityRelevant":false,"visible":false,"runnableRelevant":true},
+    {"id":"documentation","requiredRecords":[],"optionalRecords":[],"defaultSpecialists":[],"securityRelevant":false,"visible":false,"runnableRelevant":false},
+    {"id":"approved-refactor","requiredRecords":["REFACTOR_PLAN.md","BEHAVIOR_INVARIANTS.md"],"optionalRecords":[],"defaultSpecialists":["refactor-engineer","test-engineer","code-reviewer"],"securityRelevant":false,"visible":false,"runnableRelevant":true},
+    {"id":"performance","requiredRecords":["PERFORMANCE_BUDGET.md","PERFORMANCE_PLAN.md"],"optionalRecords":[],"defaultSpecialists":["performance-auditor"],"securityRelevant":false,"visible":false,"runnableRelevant":true}
+  ]
+}
