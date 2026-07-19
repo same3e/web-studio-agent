@@ -20,6 +20,8 @@ jobs:
       - run: pwsh -File scripts/test_powershell_syntax.ps1
       - run: pwsh -File scripts/test_record_contract_integrity.ps1
       - run: pwsh -File scripts/test_release_documentation_consistency.ps1
+      - run: pwsh -File scripts/test_security_perimeter.ps1
+      - run: pwsh -File scripts/test_reference_security.ps1
       - run: pwsh -File scripts/test_phase1_behavioral.ps1
       - run: pwsh -File scripts/test_phase1_runtime.ps1
       - run: pwsh -File scripts/test_phase2_contracts.ps1

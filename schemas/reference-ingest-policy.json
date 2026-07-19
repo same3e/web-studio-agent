@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "maximumFileSizeBytes": 52428800,
+  "allowedExtensions": [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".pdf", ".html", ".htm", ".txt", ".md"],
+  "textLikeExtensions": [".svg", ".html", ".htm", ".txt", ".md"],
+  "forbiddenExactNames": [".env", ".env.local", ".env.production", "id_rsa", "id_ed25519"],
+  "forbiddenExtensions": [".env", ".pem", ".key", ".pfx", ".p12", ".cer", ".crt", ".db", ".sqlite", ".sqlite3", ".sql", ".dump", ".bak", ".zip", ".rar", ".7z", ".tar", ".gz", ".exe", ".msi", ".dll", ".bat", ".cmd", ".ps1", ".sh", ".js", ".ts", ".py", ".rb", ".php"],
+  "allowedUrlSchemes": ["https", "http"]
+}
