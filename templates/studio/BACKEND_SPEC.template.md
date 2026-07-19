@@ -1,10 +1,6 @@
-# Backend specification
+<!-- studio-record
+{"schemaVersion":1,"recordType":"backend-spec","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"capabilities":[],"routesOrJobs":[],"validationStrategy":"","errorStrategy":"","loggingStrategy":"","rateLimitStrategy":"","testStrategy":""}}
+-->
+# BACKEND SPEC
 
-- Status: `required | optional | deferred | not applicable`
-- Reason:
-
-## Purpose and active capabilities
-
-## Excluded capabilities and runtime model
-
-## Route, validation, error, logging, rate-limit, job, test, and deployment ownership
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.

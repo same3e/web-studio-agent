@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"refactor-plan"},"data":{"type":"object","required":["approvedReason","behaviorInvariants","ownedPaths","forbiddenFeatureChanges","regressionChecks","rollbackStrategy"],"properties":{}}}}]}

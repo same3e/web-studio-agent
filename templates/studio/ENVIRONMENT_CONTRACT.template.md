@@ -1,6 +1,6 @@
-# Environment contract
+<!-- studio-record
+{"schemaVersion":1,"recordType":"environment-contract","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"variables":[]}}
+-->
+# ENVIRONMENT CONTRACT
 
-Never store actual secret values here.
-
-| Variable name | Purpose | Owner | Required | Server/client visibility | Development | Test | Preview | Production | Secret classification | Placeholder policy |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.

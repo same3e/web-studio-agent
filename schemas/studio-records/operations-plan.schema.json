@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"operations-plan"},"data":{"type":"object","required":["ownedRuntime","operationalOwner","serviceDependencies","healthStrategy","incidentPath","ongoingResponsibilities"],"properties":{}}}}]}

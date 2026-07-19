@@ -2,6 +2,7 @@
 param()
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'security/Test-PotentialSecret.ps1')
 $failures = [System.Collections.Generic.List[string]]::new()
 function Assert-True([bool]$condition, [string]$message) { if (-not $condition) { $script:failures.Add($message) } }
 function Read-Utf8([string]$path) { Get-Content -Raw -LiteralPath $path -Encoding utf8 }
@@ -40,7 +41,7 @@ $activeFiles = @($activeRoots | Where-Object { Test-Path $_ } | ForEach-Object {
 foreach ($file in $activeFiles) {
   $text = Read-Utf8 $file.FullName
   Assert-True ($text -notmatch '(?i)(?:[a-z]:[\\/]|/Users/|/home/)') "Accidental absolute path: $($file.FullName)"
-  Assert-True ($text -notmatch '(?i)(?:api[_-]?key|secret|token|password)\s*[:=]\s*["'']?[A-Za-z0-9_\-]{12,}') "Possible secret value: $($file.FullName)"
+  Assert-True (-not (Test-PotentialSecret -Text $text -Path $file.FullName).detected) "Possible secret value: $($file.FullName)"
   foreach ($match in [regex]::Matches($text, '\]\(([^)]+)\)')) {
     $link = $match.Groups[1].Value.Trim()
     if ($link -and $link -notmatch '^(?:https?:|#|mailto:)') {

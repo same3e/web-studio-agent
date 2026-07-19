@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"backend-spec"},"data":{"type":"object","required":["capabilities","routesOrJobs","validationStrategy","errorStrategy","loggingStrategy","rateLimitStrategy","testStrategy"],"properties":{}}}}]}

@@ -18,6 +18,8 @@ jobs:
       - run: pip install pyyaml
       - run: pwsh -File scripts/validate_migration.ps1
       - run: pwsh -File scripts/test_powershell_syntax.ps1
+      - run: pwsh -File scripts/test_record_contract_integrity.ps1
+      - run: pwsh -File scripts/test_release_documentation_consistency.ps1
       - run: pwsh -File scripts/test_phase1_behavioral.ps1
       - run: pwsh -File scripts/test_phase1_runtime.ps1
       - run: pwsh -File scripts/test_phase2_contracts.ps1

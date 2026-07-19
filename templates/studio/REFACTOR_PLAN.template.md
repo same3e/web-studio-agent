@@ -1,3 +1,6 @@
-# Refactor plan
-- Status: `required | optional | deferred | not applicable`
-- Goal, violated code-quality rule IDs, invariants, approved requirements, files/ownership, dependency changes, order, tests, rollback, risks, non-goals, user-visible changes, approval:
+<!-- studio-record
+{"schemaVersion":1,"recordType":"refactor-plan","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"approvedReason":"","behaviorInvariants":[],"ownedPaths":[],"forbiddenFeatureChanges":[],"regressionChecks":[],"rollbackStrategy":""}}
+-->
+# REFACTOR PLAN
+
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.

@@ -6,7 +6,7 @@ The release tree exposes exactly two user-facing skills: `product-studio` and `a
 
 ## Knowledge and state
 
-`knowledge/KNOWLEDGE_INDEX.md` routes 121 modular methodology files by task, project state, product type, and risk. Mutable project information belongs in `.studio/`; templates cover state, discovery, roles, flows, scope, references, concept, approval, copy, system, plan, criteria, and reports.
+`knowledge/KNOWLEDGE_INDEX.md` routes 160 modular methodology files by task, project state, product type, and risk. The release has 33 runtime-enforced record contracts, each with a schema, typed template, validator coverage declaration, and deterministic integrity check. Mutable project information belongs in `.studio/`; templates cover state, discovery, roles, flows, scope, references, concept, approval, copy, system, plan, criteria, and reports.
 
 ## State machine
 
@@ -14,7 +14,7 @@ The release tree exposes exactly two user-facing skills: `product-studio` and `a
 
 ## Validation results
 
-- Migration validator: passed; two active skills, 121 modular knowledge files, project-local initialization/preservation fixture, packaging, examples, routing, factual/no-copy, and workflow coverage checked.
+- Migration validator: passed; two active skills, 160 modular knowledge files, project-local initialization/preservation fixture, packaging, examples, routing, factual/no-copy, and workflow coverage checked.
 - Codex plugin validator: passed.
 - Skill validators: passed for both active skills.
 - Existing Noma sample: TypeScript, ESLint, and production build passed; build required execution outside sandbox because sandboxed Next.js child process spawning returned `EPERM`.
@@ -25,6 +25,8 @@ The release tree exposes exactly two user-facing skills: `product-studio` and `a
 Legacy skills, flat knowledge/templates, old public-release copy, and historical project material were removed from the release tree only after validation and are preserved under `backups/`. They are ignored by Git and must not be committed or published.
 
 ## Known limitations and manual actions
+
+PowerShell 7.x (`pwsh`) is required to run validation and orchestration scripts locally; it is not bundled with Codex or Claude environments. Use the official PowerShell installation guidance for Windows, macOS, or Linux before running these commands.
 
 1. Run `claude plugin validate .` locally, add the marketplace at user scope, install `web-studio-agent@web-studio-agent`, run `/reload-plugins`, and confirm `/web-studio-agent:product-studio` and `/web-studio-agent:add-reference` appear.
 2. Test the Codex local-plugin installation through its plugin manager and confirm both skills load in a new thread; no global installation was performed here.

@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"release-checklist"},"data":{"type":"object","required":["items"],"properties":{}}}}]}

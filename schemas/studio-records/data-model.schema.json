@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"data-model"},"data":{"type":"object","required":["entities"],"properties":{}}}}]}

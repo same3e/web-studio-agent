@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"database-decision"},"data":{"type":"object","required":["persistenceRequired","storageModel","classification","ownershipModel","backupRequirement","migrationRequired","rejectedAlternatives"],"properties":{}}}}]}

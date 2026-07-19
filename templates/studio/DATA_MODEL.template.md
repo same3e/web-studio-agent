@@ -1,7 +1,6 @@
-# Data model
+<!-- studio-record
+{"schemaVersion":1,"recordType":"data-model","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"entities":[]}}
+-->
+# DATA MODEL
 
-- Status: `required | optional | deferred | not applicable`
-- Reason:
-
-| Entity / field | Type | Relationship | Constraint / index | Owner | Public or private | Deletion / retention | Access rule |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.

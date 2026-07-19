@@ -2,12 +2,13 @@
 param([Parameter(Mandatory)][string]$ProjectRoot)
 
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'security/Test-PotentialSecret.ps1')
 $studio = Join-Path ((Resolve-Path $ProjectRoot).Path) '.studio'
 $failures = [System.Collections.Generic.List[string]]::new()
 function Text([string]$name) { $path=Join-Path $studio $name; if(Test-Path $path){Get-Content -Raw $path}else{''} }
 $env = Text 'ENVIRONMENT_CONTRACT.md'
 if($env -match '(?im)^\|[^\n]*\|[^\n]*\|[^\n]*\|[^\n]*\|\s*client\s*\|[^\n]*(?:secret|private)'){ $failures.Add('Client-visible environment variable is marked secret/private.') }
-if($env -match '(?i)(api[_-]?key|secret|token|password)\s*[:=]\s*[A-Za-z0-9_\-]{8,}'){ $failures.Add('Environment contract appears to contain an actual secret value.') }
+if((Test-PotentialSecret -Text $env -Path (Join-Path $studio 'ENVIRONMENT_CONTRACT.md')).detected){ $failures.Add('Environment contract appears to contain an actual secret value.') }
 $integration = Text 'INTEGRATION_SPEC.md'
 if($integration -match '(?i)webhook' -and -not ($integration -match '(?i)(signature|verification|verify)')){ $failures.Add('Webhook integration lacks verification behavior.') }
 if($integration -match '(?i)(production|live)' -and $integration -match '(?i)(form success|fake success|no delivery)'){ $failures.Add('Integration claims production success without delivery behavior.') }

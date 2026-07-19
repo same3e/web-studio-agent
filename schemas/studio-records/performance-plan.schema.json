@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"performance-plan"},"data":{"type":"object","required":["measuredTarget","measurementMethod","relevantSurface","evidenceType","acceptedLimitation"],"properties":{}}}}]}

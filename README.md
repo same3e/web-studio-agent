@@ -54,6 +54,8 @@ Internal agents are selected automatically from the active project surface; they
 
 ## Installation
 
+PowerShell 7.x (`pwsh`) is required to run validation and orchestration scripts locally. Install it with `winget install Microsoft.PowerShell` on Windows, `brew install --cask powershell` on macOS, or the package instructions at [Microsoft's PowerShell installation guide](https://learn.microsoft.com/powershell/scripting/install/installing-powershell). It is not bundled with Codex or Claude environments.
+
 ### Claude Code
 
 ```text

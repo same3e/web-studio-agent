@@ -1,4 +1,6 @@
-# Release plan
-- Status: `required | optional | deferred | not applicable`
-- Reason:
-## Gates, versioning, migration order, manual steps, rollback, blockers
+<!-- studio-record
+{"schemaVersion":1,"recordType":"release-plan","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"targetEnvironment":"","buildArtifact":"","dependencies":[],"releaseSteps":[],"verificationGates":[],"blockers":[],"rollbackReference":""}}
+-->
+# RELEASE PLAN
+
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.

@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"data-retention"},"data":{"type":"object","required":["dataClasses","retentionDecision","deletionBehavior","owner","basis","verificationMethod"],"properties":{}}}}]}

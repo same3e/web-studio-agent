@@ -1,9 +1,6 @@
-# API contract
+<!-- studio-record
+{"schemaVersion":1,"recordType":"api-contract","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"operations":[]}}
+-->
+# API CONTRACT
 
-- Status: `required | optional | deferred | not applicable`
-- Reason:
-
-| Route / operation | Request schema | Response schema | Error schema | Authentication | Authorization | Idempotency | Rate limit | Client owner | Server owner |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-
-## Versioning and change control
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.

@@ -1,20 +1,68 @@
 . (Join-Path $PSScriptRoot 'Test-StudioRecord.ps1')
 . (Join-Path $PSScriptRoot 'Get-SurfaceRegistry.ps1')
-function Get-StudioRequirements {
- param([Parameter(Mandatory)][string]$ProjectRoot)
- $state=Test-StudioRecord -Path (Get-StudioRecordPath $ProjectRoot 'PROJECT_STATE.md') -ExpectedRecordType 'project-state' -Required
- if(-not $state.valid){return [pscustomobject]@{state=$state;required=@();surfaces=@();productType='';workflowMode='';runnable=$false}}
- $d=$state.record.metadata.data;$s=@($d.surfaces);$registry=Get-SurfaceRegistry -Surface $s;$unknownSurfaces=[array]@($registry.unknown)
- if($unknownSurfaces.Length -gt 0){return [pscustomobject]@{state=$state;required=@();surfaces=$s;productType=$d.productType;workflowMode=$d.workflowMode;runnable=$false;unknownSurfaces=$unknownSurfaces}}
- $types=@{'BACKEND_SPEC.md'='backend-spec';'API_CONTRACT.md'='api-contract';'DATABASE_DECISION.md'='database-decision';'DATA_MODEL.md'='data-model';'MIGRATION_PLAN.md'='migration-plan';'DATA_RETENTION.md'='data-retention';'INTEGRATION_SPEC.md'='integration-spec';'EXTERNAL_SERVICES.md'='external-services';'ENVIRONMENT_CONTRACT.md'='environment-contract';'THREAT_MODEL.md'='threat-model';'SECURITY_MODEL.md'='security-model';'REFACTOR_PLAN.md'='refactor-plan';'BEHAVIOR_INVARIANTS.md'='behavior-invariants';'PERFORMANCE_BUDGET.md'='performance-budget';'PERFORMANCE_PLAN.md'='performance-plan';'RELEASE_PLAN.md'='release-plan';'RELEASE_CHECKLIST.md'='release-checklist';'ROLLBACK_PLAN.md'='rollback-plan';'DEPLOYMENT_MATRIX.md'='deployment-matrix';'OPERATIONS_PLAN.md'='operations-plan';'OBSERVABILITY_PLAN.md'='observability-plan';'HEALTH_CHECKS.md'='health-checks';'INCIDENT_RESPONSE.md'='incident-response';'RUNBOOK.md'='runbook';'BACKUP_RECOVERY.md'='backup-recovery';'DESIGN_SYSTEM.md'='design-system'}
- $r=@(@{name='ACTIVE_AND_DEFERRED_SCOPE.md';type='active-scope'},@{name='APPROVED_CONCEPT.md';type='approved-concept'},@{name='IMPLEMENTATION_PLAN.md';type='implementation-plan'},@{name='ACCEPTANCE_CRITERIA.md';type='acceptance-criteria'},@{name='TECH_DECISION.md';type='technical-decision'})
- foreach($surface in $registry.selected){foreach($name in @($surface.requiredRecords)){ $r+=@{name=$name;type=$types[$name]}}}
- $environments=if($d.PSObject.Properties['environments']){@($d.environments)}else{@()};$persistentData=if($d.PSObject.Properties['persistentProductionData']){[bool]$d.persistentProductionData}else{$false};if($s -contains 'release' -and (($d.PSObject.Properties['deploymentScope'] -and $d.deploymentScope -eq 'active') -or @($environments).Length -gt 1)){$r+=@{name='DEPLOYMENT_MATRIX.md';type='deployment-matrix'}}
- if($s -contains 'operations' -and $persistentData){$r+=@{name='BACKUP_RECOVERY.md';type='backup-recovery'}}
- [pscustomobject]@{state=$state;required=@($r|Group-Object name|ForEach-Object{$_.Group[0]});surfaces=$s;productType=$d.productType;workflowMode=$d.workflowMode;runnable=[bool]$d.runnable;unknownSurfaces=@()}
+
+function Get-RecordContractRegistry {
+  $root = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
+  return (Get-Content -Raw (Join-Path $root 'schemas/studio-records/record-contract-registry.json') | ConvertFrom-Json).contracts
 }
+
+function Get-StudioRequirements {
+  param([Parameter(Mandatory)][string]$ProjectRoot)
+
+  $statePath = Get-StudioRecordPath $ProjectRoot 'PROJECT_STATE.md'
+  $state = Test-StudioRecord -Path $statePath -ExpectedRecordType 'project-state' -Required
+  if (-not $state.valid) {
+    return [pscustomobject]@{ state = $state; required = @(); surfaces = @(); productType = ''; workflowMode = ''; runnable = $false; unknownSurfaces = @() }
+  }
+
+  $data = $state.record.metadata.data
+  $surfaces = @($data.surfaces)
+  $surfaceRegistry = Get-SurfaceRegistry -Surface $surfaces
+  if (@($surfaceRegistry.unknown).Count) {
+    return [pscustomobject]@{ state = $state; required = @(); surfaces = $surfaces; productType = $data.productType; workflowMode = $data.workflowMode; runnable = $false; unknownSurfaces = @($surfaceRegistry.unknown) }
+  }
+
+  $contracts = Get-RecordContractRegistry
+  $requirements = @($contracts | Where-Object { $_.baseRequirement })
+  foreach ($surface in $surfaceRegistry.selected) {
+    foreach ($name in @($surface.requiredRecords)) {
+      $contract = @($contracts | Where-Object { $_.fileName -eq $name }) | Select-Object -First 1
+      if ($null -eq $contract) {
+        $requirements += [pscustomobject]@{ fileName = $name; recordType = $null }
+      } else {
+        $requirements += $contract
+      }
+    }
+  }
+  $deploymentScopeActive = $data.PSObject.Properties['deploymentScope'] -and $data.deploymentScope -eq 'active'
+  $multipleEnvironments = $data.PSObject.Properties['environments'] -and @($data.environments).Count -gt 1
+  if ($surfaces -contains 'release' -and ($deploymentScopeActive -or $multipleEnvironments)) {
+    $requirements += @($contracts | Where-Object recordType -eq 'deployment-matrix')
+  }
+  $persistentProductionData = $data.PSObject.Properties['persistentProductionData'] -and $data.persistentProductionData -is [bool] -and $data.persistentProductionData
+  if ($surfaces -contains 'operations' -and $persistentProductionData) {
+    $requirements += @($contracts | Where-Object recordType -eq 'backup-recovery')
+  }
+  $resolvedRequirements = @($requirements | Group-Object fileName | ForEach-Object {
+    $contract = $_.Group[0]
+    [pscustomobject]@{ name = $contract.fileName; type = $contract.recordType; contract = $contract }
+  })
+  return [pscustomobject]@{ state = $state; required = $resolvedRequirements; surfaces = $surfaces; productType = $data.productType; workflowMode = $data.workflowMode; runnable = [bool]$data.runnable; unknownSurfaces = @() }
+}
+
 function Test-RequiredProjectRecords {
- param([Parameter(Mandatory)][string]$ProjectRoot)
- $requirements=Get-StudioRequirements $ProjectRoot;$checks=@($requirements.state);if(@($requirements.unknownSurfaces).Count){foreach($surface in $requirements.unknownSurfaces){$checks+=[pscustomobject]@{valid=$false;status='invalid';record=[pscustomobject]@{path=(Get-StudioRecordPath $ProjectRoot 'PROJECT_STATE.md')};errors=@([pscustomobject]@{blockingReason="UNKNOWN_SURFACE: $surface"})}}};foreach($r in $requirements.required){$checks+=Test-StudioRecord -Path (Get-StudioRecordPath $ProjectRoot $r.name) -ExpectedRecordType $r.type -Required -RequiredSurfaces $requirements.surfaces}
- [pscustomobject]@{valid=(@($checks|Where-Object{-not $_.valid}).Count -eq 0);requirements=$requirements;checks=$checks;errors=@($checks|ForEach-Object errors)}
+  param([Parameter(Mandatory)][string]$ProjectRoot)
+  $requirements = Get-StudioRequirements $ProjectRoot
+  $checks = @($requirements.state)
+  foreach ($surface in @($requirements.unknownSurfaces)) {
+    $checks += [pscustomobject]@{ valid = $false; errors = @([pscustomobject]@{ blockingReason = "UNKNOWN_SURFACE: $surface" }) }
+  }
+  foreach ($requirement in @($requirements.required)) {
+    if ([string]::IsNullOrWhiteSpace([string]$requirement.type)) {
+      $checks += [pscustomobject]@{ valid = $false; errors = @([pscustomobject]@{ blockingReason = 'REQUIRED_RECORD_UNKNOWN' }) }
+      continue
+    }
+    $checks += Test-StudioRecord -Path (Get-StudioRecordPath $ProjectRoot $requirement.name) -ExpectedRecordType $requirement.type -Required -RequiredSurfaces $requirements.surfaces
+  }
+  return [pscustomobject]@{ valid = @($checks | Where-Object { -not $_.valid }).Count -eq 0; requirements = $requirements; checks = $checks; errors = @($checks | ForEach-Object errors) }
 }

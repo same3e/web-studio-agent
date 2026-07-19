@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"health-checks"},"data":{"type":"object","required":["checks"],"properties":{}}}}]}

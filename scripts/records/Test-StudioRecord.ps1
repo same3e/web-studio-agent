@@ -1,44 +1,49 @@
 . (Join-Path $PSScriptRoot 'Read-StudioRecord.ps1')
+. (Join-Path $PSScriptRoot 'RecordValidationHelpers.ps1')
+. (Join-Path $PSScriptRoot 'validators/RecordValidatorDefinitions.ps1')
+. (Join-Path $PSScriptRoot '../security/Test-PotentialSecret.ps1')
 
-function Test-StudioValue { param($Value) if($null -eq $Value){return $false}; $text=([string]$Value).Trim(); return $text -and $text -notmatch '(?i)^(?:tbd|todo|unknown|placeholder|template|\[.*\])$' }
-function Add-StudioError { param($List,[string]$Path,[string]$Type,[string]$Field,[string]$Value,[string]$Reason) $List.Add([pscustomobject][ordered]@{path=$Path;recordType=$Type;missingField=$Field;invalidValue=$Value;status='';blockingReason=$Reason}) }
-function Require-StudioFields { param($Data,[string[]]$Fields,$Errors,[string]$Path,[string]$Type) foreach($field in $Fields){if($null -eq $Data.$field -or ($Data.$field -is [string] -and -not(Test-StudioValue $Data.$field))){Add-StudioError $Errors $Path $Type "data.$field" 'missing-or-empty' 'Record-specific required field is missing or empty.'}} }
+function Add-StudioError {
+  param($List, [string]$Path, [string]$Type, [string]$Field, [string]$Value, [string]$Reason)
+  $List.Add([pscustomobject][ordered]@{ path = $Path; recordType = $Type; missingField = $Field; invalidValue = $Value; status = ''; blockingReason = $Reason })
+}
 
 function Test-StudioRecord {
- [CmdletBinding()]
- param([Parameter(Mandatory)][string]$Path,[string]$ExpectedRecordType,[switch]$Required,[string[]]$RequiredSurfaces=@())
- $record=Read-StudioRecord -Path $Path;$errors=[Collections.Generic.List[object]]::new();$type=$ExpectedRecordType
- if(-not $record.exists){if($Required){Add-StudioError $errors $Path $type 'record' 'missing' 'Required record is missing.'};return [pscustomobject]@{valid=$false;record=$record;errors=@($errors);status='missing'}}
- if($null -eq $record.metadata){Add-StudioError $errors $Path $type 'metadata' $(if($record.legacy){'legacy-unstructured'}else{'invalid-json'}) (($record.errors|Select-Object -First 1).blockingReason);return [pscustomobject]@{valid=$false;record=$record;errors=@($errors);status='invalid'}}
- $m=$record.metadata;$type=[string]$m.recordType
- foreach($field in @('schemaVersion','recordType','status','owner','updatedAt','applicability','sources','data')){if($null -eq $m.$field){Add-StudioError $errors $Path $type $field 'missing' 'Required envelope field is missing.'}}
- if($m.schemaVersion -ne 1){Add-StudioError $errors $Path $type 'schemaVersion' ([string]$m.schemaVersion) 'Only schemaVersion 1 is supported.'}
- if($ExpectedRecordType -and $m.recordType -ne $ExpectedRecordType){Add-StudioError $errors $Path $type 'recordType' ([string]$m.recordType) "Expected record type $ExpectedRecordType."}
- if(@('draft','blocked','superseded') -contains $m.status -and $Required){Add-StudioError $errors $Path $type 'status' ([string]$m.status) 'A required record is not ready.'}
- if($m.status -eq 'not-applicable' -and $Required){Add-StudioError $errors $Path $type 'status' 'not-applicable' 'Routing requires this record.'}
- if(-not (Test-StudioValue $m.owner)){Add-StudioError $errors $Path $type 'owner' ([string]$m.owner) 'Owner is incomplete.'}
- if(-not $m.applicability -or $null -eq $m.applicability.productTypes -or $null -eq $m.applicability.surfaces){Add-StudioError $errors $Path $type 'applicability' 'missing' 'Applicability must contain productTypes and surfaces.'}
- if($m.status -eq 'not-applicable' -and -not (Test-StudioValue $m.data.reason)){Add-StudioError $errors $Path $type 'data.reason' 'missing' 'not-applicable requires a non-empty reason.'}
- if(-not $record.body -or $record.body -match '(?is)^#?\s*(?:record|template|todo|tbd|project state)\s*$'){Add-StudioError $errors $Path $type 'body' 'empty-or-template' 'Record body has no meaningful human-readable context.'}
- switch($ExpectedRecordType){
-  'project-state' { foreach($f in @('currentState','productType','workflowMode','surfaces','runnable','risks','nextRequiredTransition')){if($null -eq $m.data.$f){Add-StudioError $errors $Path $type "data.$f" 'missing' 'Required project state field is missing.'}};if($m.data.workflowMode -notin @('lean','standard','thorough')){Add-StudioError $errors $Path $type 'data.workflowMode' ([string]$m.data.workflowMode) 'Invalid workflow mode.'};if(-not (Test-StudioValue $m.data.productType)){Add-StudioError $errors $Path $type 'data.productType' ([string]$m.data.productType) 'Product type must be known.'};if(@($m.data.surfaces).Count -eq 0){Add-StudioError $errors $Path $type 'data.surfaces' 'empty' 'Active surfaces are required.'} }
-  'active-scope' { if(@($m.data.active).Count -eq 0){Add-StudioError $errors $Path $type 'data.active' 'empty' 'Active scope must contain an item.'};foreach($i in @($m.data.active)){if(-not(Test-StudioValue $i.id) -or -not(Test-StudioValue $i.title) -or @($i.surfaces).Count -eq 0 -or @($i.acceptanceCriteria).Count -eq 0){Add-StudioError $errors $Path $type 'data.active' 'incomplete' 'Each active scope item needs id, title, surfaces, and acceptance criteria.'}} }
-  'approved-concept' { if($m.status -ne 'approved' -or $m.data.approval.status -ne 'approved'){Add-StudioError $errors $Path $type 'approval.status' ([string]$m.data.approval.status) 'Approval record must be approved.'};foreach($f in @('approvedAt','approvedBy','source')){if(-not(Test-StudioValue $m.data.approval.$f)){Add-StudioError $errors $Path $type "data.approval.$f" 'missing' 'Explicit traceable approval evidence is required.'}} }
-  'design-system' { if($RequiredSurfaces -contains 'frontend-visible'){foreach($f in @('designThesis','signatureElement','gridStrategy','compositionMap','responsivePlan','tasteResolution')){if($null -eq $m.data.$f){Add-StudioError $errors $Path $type "data.$f" 'missing' 'Visible frontend requires complete design-system data.'}};$column=if($m.data.gridStrategy.PSObject.Properties['columnModel']){[string]$m.data.gridStrategy.columnModel}else{''};$gutters=if($m.data.gridStrategy.PSObject.Properties['gutters']){[string]$m.data.gridStrategy.gutters}else{''};if([string]::IsNullOrWhiteSpace([string]$m.data.designThesis)){Add-StudioError $errors $Path $type 'data.designThesis' 'empty' 'Visible frontend requires a design thesis.'};if([string]::IsNullOrWhiteSpace($column) -or @($m.data.gridStrategy.containers).Count -eq 0 -or [string]::IsNullOrWhiteSpace($gutters) -or @($m.data.gridStrategy.breakpoints).Count -eq 0){Add-StudioError $errors $Path $type 'data.gridStrategy' 'incomplete' 'Visible frontend requires grid and responsive strategy.'}} }
-  'implementation-plan' { . (Join-Path $PSScriptRoot '../security/Test-ProjectRelativePath.ps1'); if(@($m.data.tasks).Count -eq 0){Add-StudioError $errors $Path $type 'data.tasks' 'empty' 'Implementation plan needs tasks.'};$projectRoot=Split-Path -Parent (Split-Path -Parent $Path);foreach($t in @($m.data.tasks)){if(-not(Test-StudioValue $t.id) -or -not(Test-StudioValue $t.owner) -or @($t.acceptanceCriteria).Count -eq 0 -or (@($t.affectedPaths).Count -eq 0 -and -not(Test-StudioValue $t.pendingPathReason))){Add-StudioError $errors $Path $type 'data.tasks' 'incomplete' 'Task requires owner, acceptance mapping, and paths or pending-path reason.'};foreach($affected in @($t.affectedPaths)){if(-not(Test-ProjectRelativePath -ProjectRoot $projectRoot -Path $affected -AllowGlob).valid){Add-StudioError $errors $Path $type 'data.tasks.affectedPaths' $affected 'AFFECTED_PATH_INVALID'}}} }
-  'acceptance-criteria' { if(@($m.data.criteria).Count -eq 0){Add-StudioError $errors $Path $type 'data.criteria' 'empty' 'Acceptance criteria require an active criterion.'};foreach($c in @($m.data.criteria)){if(-not(Test-StudioValue $c.id) -or -not(Test-StudioValue $c.behavior) -or -not(Test-StudioValue $c.surface) -or @($c.evidenceTypes).Count -eq 0){Add-StudioError $errors $Path $type 'data.criteria' 'incomplete' 'Criterion requires id, behavior, surface, and evidence types.'}} }
-  'copy' { if(@($m.data.sections).Count -eq 0 -or -not(Test-StudioValue $m.data.contentLedgerPath)){Add-StudioError $errors $Path $type 'data' 'incomplete' 'Copy record needs sections and content-ledger path.'} }
-  'backend-spec' {Require-StudioFields $m.data @('capabilities','routesOrJobs','validationStrategy','errorStrategy','loggingStrategy','rateLimitStrategy','testStrategy') $errors $Path $type;if(@($m.data.capabilities).Count -eq 0 -and @($m.data.routesOrJobs).Count -eq 0){Add-StudioError $errors $Path $type 'data.capabilities/routesOrJobs' 'empty' 'BACKEND_SPEC requires a capability or route/job.'}}
-  'api-contract' {$operations=if($m.data.PSObject.Properties['operations']){@($m.data.operations)}else{@()};if($operations.Count -eq 0){Add-StudioError $errors $Path $type 'data.operations' 'empty' 'API contract needs an operation.'};foreach($op in $operations){Require-StudioFields $op @('id','method','path','requestSchema','responseSchema','errorSchema','authentication','authorization','idempotency','rateLimit') $errors $Path $type;if([string]$op.path -match '^(?:https?:)?//'){Add-StudioError $errors $Path $type 'data.operations.path' $op.path 'API route paths must be relative.'}}}
-  'database-decision' {Require-StudioFields $m.data @('persistenceRequired','storageModel','classification','ownershipModel','backupRequirement','migrationRequired','rejectedAlternatives') $errors $Path $type;if($m.data.persistenceRequired -isnot [bool] -or $m.data.migrationRequired -isnot [bool]){Add-StudioError $errors $Path $type 'data.boolean' 'invalid' 'Database booleans must be actual booleans.'}}
-  'data-model' {if(@($m.data.entities).Count -eq 0){Add-StudioError $errors $Path $type 'data.entities' 'empty' 'Data model needs an entity.'};foreach($entity in @($m.data.entities)){Require-StudioFields $entity @('id','owner','fields','constraints','accessRules','lifecycle') $errors $Path $type}}
-  'integration-spec' {Require-StudioFields $m.data @('provider','purpose','dataFlow','secretBoundary','clientServerBoundary','retryStrategy','timeout','idempotency','failureBehavior','environment') $errors $Path $type;if([string]$m.data.purpose -match '(?i)webhook' -and -not(Test-StudioValue $m.data.webhookVerification)){Add-StudioError $errors $Path $type 'data.webhookVerification' 'missing' 'Webhook integrations require verification.'}}
-  'environment-contract' {foreach($v in @($m.data.variables)){Require-StudioFields $v @('name','required','visibility','secret','purpose') $errors $Path $type;if($v.visibility -notin @('server','client-public') -or $v.secret -isnot [bool] -or $v.required -isnot [bool] -or ($v.secret -and $v.visibility -eq 'client-public')){Add-StudioError $errors $Path $type 'data.variables' 'invalid' 'Environment variable metadata is unsafe.'};if($v.PSObject.Properties['value'] -or [string]$v -match '(?i)(api[_-]?key|secret|token)\s*[:=]'){Add-StudioError $errors $Path $type 'data.variables' 'credential' 'Environment contracts store metadata, never values.'}}}
-  'refactor-plan' {Require-StudioFields $m.data @('approvedReason','behaviorInvariants','ownedPaths','forbiddenFeatureChanges','regressionChecks','rollbackStrategy') $errors $Path $type}
- }
- if($ExpectedRecordType -in @('threat-model','security-model')){Require-StudioFields $m.data @('assets','trustBoundaries','actors','threats','controls','verificationOwners','unresolvedRisks') $errors $Path $type}
- if($ExpectedRecordType -in @('performance-budget','performance-plan')){Require-StudioFields $m.data @('measuredTarget','measurementMethod','relevantSurface','evidenceType','acceptedLimitation') $errors $Path $type}
- if($ExpectedRecordType -in @('release-plan','release-checklist','rollback-plan')){Require-StudioFields $m.data @('targetEnvironment','buildArtifact','migrationDependency','rollbackMethod','verificationGates','unresolvedBlockers') $errors $Path $type}
- if($ExpectedRecordType -in @('operations-plan','observability-plan','health-checks','incident-response','runbook')){Require-StudioFields $m.data @('healthSignal','observabilityOwner','incidentPath','runbookOwner') $errors $Path $type}
- [pscustomobject]@{valid=($errors.Count -eq 0);record=$record;errors=@($errors);status=if($errors.Count){'invalid'}else{'valid'}}
+  [CmdletBinding()]
+  param([Parameter(Mandatory)][string]$Path, [string]$ExpectedRecordType, [switch]$Required, [string[]]$RequiredSurfaces = @())
+
+  $record = Read-StudioRecord -Path $Path
+  $errors = [Collections.Generic.List[object]]::new()
+  $type = $ExpectedRecordType
+  if (-not $record.exists) {
+    if ($Required) { Add-StudioError $errors $Path $type 'record' 'missing' 'REQUIRED_RECORD_MISSING' }
+    return [pscustomobject]@{ valid = $false; record = $record; errors = @($errors); status = 'missing' }
+  }
+  if ($null -eq $record.metadata) {
+    Add-StudioError $errors $Path $type 'metadata' 'invalid' (($record.errors | Select-Object -First 1).blockingReason)
+    return [pscustomobject]@{ valid = $false; record = $record; errors = @($errors); status = 'invalid' }
+  }
+
+  $metadata = $record.metadata
+  $type = [string]$metadata.recordType
+  foreach ($field in @('schemaVersion', 'recordType', 'status', 'owner', 'updatedAt', 'applicability', 'sources', 'data')) {
+    if ($null -eq $metadata.$field) { Add-StudioError $errors $Path $type $field 'missing' 'ENVELOPE_FIELD_MISSING' }
+  }
+  if ($metadata.schemaVersion -ne 1) { Add-StudioError $errors $Path $type 'schemaVersion' ([string]$metadata.schemaVersion) 'SCHEMA_VERSION_UNSUPPORTED' }
+  if ($ExpectedRecordType -and $type -ne $ExpectedRecordType) { Add-StudioError $errors $Path $type 'recordType' $type 'RECORD_TYPE_MISMATCH' }
+  if ($Required -and $metadata.status -in @('draft', 'blocked', 'superseded')) { Add-StudioError $errors $Path $type 'status' $metadata.status 'REQUIRED_RECORD_NOT_READY' }
+  if ($Required -and $metadata.status -eq 'not-applicable') { Add-StudioError $errors $Path $type 'status' 'not-applicable' 'ROUTED_RECORD_NOT_APPLICABLE' }
+  if (-not (Test-MeaningfulText $metadata.owner)) { Add-StudioError $errors $Path $type 'owner' ([string]$metadata.owner) 'OWNER_INVALID' }
+  if (-not (Test-ObjectValue $metadata.applicability) -or $null -eq $metadata.applicability.productTypes -or $null -eq $metadata.applicability.surfaces) { Add-StudioError $errors $Path $type 'applicability' 'missing' 'APPLICABILITY_INVALID' }
+  if ($metadata.status -eq 'not-applicable' -and -not (Test-MeaningfulText $metadata.data.reason)) { Add-StudioError $errors $Path $type 'data.reason' 'missing' 'NOT_APPLICABLE_REASON_REQUIRED' }
+  if (-not (Test-MeaningfulText $record.body)) { Add-StudioError $errors $Path $type 'body' 'empty-or-template' 'RECORD_BODY_INVALID' }
+
+  if ($metadata.status -ne 'not-applicable') {
+    Invoke-StudioRecordTypeValidation -RecordType $type -Data $metadata.data -Errors $errors -Path $Path -RequiredSurfaces $RequiredSurfaces
+    if ($type -eq 'environment-contract') {
+      $potentialSecret = Test-PotentialSecret -Text ($metadata.data | ConvertTo-Json -Depth 20 -Compress) -Path $Path
+      if ($potentialSecret.detected) { Add-StudioError $errors $Path $type 'data.variables' $potentialSecret.category 'ENVIRONMENT_CONTRACT_SECRET_VALUE' }
+    }
+  }
+  return [pscustomobject]@{ valid = $errors.Count -eq 0; record = $record; errors = @($errors); status = if ($errors.Count) { 'invalid' } else { 'valid' } }
 }

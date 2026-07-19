@@ -1,7 +1,6 @@
-# Integration specification
+<!-- studio-record
+{"schemaVersion":1,"recordType":"integration-spec","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"provider":"","purpose":"","dataFlow":"","secretBoundary":"","clientServerBoundary":"","retryStrategy":"","timeout":"","idempotency":"","failureBehavior":"","environment":""}}
+-->
+# INTEGRATION SPEC
 
-- Status: `required | optional | deferred | not applicable`
-- Reason:
-
-| Provider | Purpose | Data flow | Secrets | Client/server boundary | Sandbox / production | Retry / timeout / idempotency | Webhook verification | Failure state | Cost / replacement |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.

@@ -1,9 +1,6 @@
-# Database decision
+<!-- studio-record
+{"schemaVersion":1,"recordType":"database-decision","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"persistenceRequired":false,"storageModel":"","classification":"","ownershipModel":"","backupRequirement":"","migrationRequired":false,"rejectedAlternatives":[]}}
+-->
+# DATABASE DECISION
 
-- Status: `required | optional | deferred | not applicable`
-- Reason:
-- Persistence required: `yes/no`
-- Selected storage model:
-- Rejected alternatives:
-
-## Operational burden, sensitivity, growth, backups, migrations, and revisit triggers
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.

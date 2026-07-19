@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"behavior-invariants"},"data":{"type":"object","required":["invariants","owner"],"properties":{}}}}]}

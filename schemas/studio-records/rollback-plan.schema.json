@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"rollback-plan"},"data":{"type":"object","required":["trigger","target","procedure","dataMigrationImplications","owner","verification","maxInterruption"],"properties":{}}}}]}

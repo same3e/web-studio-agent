@@ -1,5 +1,6 @@
-# Deployment matrix
-- Status: `required | optional | deferred | not applicable`
-- Reason:
-| Environment | Purpose | Runtime | Data | Secrets source | Domain | Trigger | Migration | Providers | Observability | Access | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+<!-- studio-record
+{"schemaVersion":1,"recordType":"deployment-matrix","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"environments":[]}}
+-->
+# DEPLOYMENT MATRIX
+
+Record the approved, evidence-backed decision here. Replace all empty typed data before marking this record ready.
