@@ -1,22 +1,7 @@
 [CmdletBinding()]
 param([Parameter(Mandatory)][string]$ProjectRoot)
-
-$ErrorActionPreference = 'Stop'
-$project = (Resolve-Path -LiteralPath $ProjectRoot).Path
-$studio = Join-Path $project '.studio'
-$root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-if(-not (Test-Path -LiteralPath (Join-Path $studio 'APPROVED_CONCEPT.md'))) { throw 'Cannot derive approved records without .studio/APPROVED_CONCEPT.md.' }
-$created = [System.Collections.Generic.List[string]]::new()
-foreach($name in @('COPY','DESIGN_SYSTEM','IMPLEMENTATION_PLAN','ACCEPTANCE_CRITERIA','TASTE_OVERRIDES','PROJECT_SNAPSHOT','CONTEXT_INDEX')) {
-  $target = Join-Path $studio "$name.md"
-  if(-not (Test-Path -LiteralPath $target)) { Copy-Item -LiteralPath (Join-Path $root "templates/studio/$name.template.md") -Destination $target; $created.Add(".studio/$name.md") }
-}
-foreach($name in @('BACKEND_SPEC','API_CONTRACT','DATABASE_DECISION','DATA_MODEL','MIGRATION_PLAN','DATA_RETENTION','INTEGRATION_SPEC','EXTERNAL_SERVICES','ENVIRONMENT_CONTRACT','THREAT_MODEL','SECURITY_MODEL')) {
-  $target = Join-Path $studio "$name.md"
-  if(-not (Test-Path -LiteralPath $target)) { Copy-Item -LiteralPath (Join-Path $root "templates/studio/$name.template.md") -Destination $target; $created.Add(".studio/$name.md") }
-}
-foreach($name in @('REFACTOR_PLAN','BEHAVIOR_INVARIANTS','PERFORMANCE_BUDGET','PERFORMANCE_PLAN','RELEASE_PLAN','DEPLOYMENT_MATRIX','RELEASE_CHECKLIST','ROLLBACK_PLAN','CHANGELOG_PLAN','OPERATIONS_PLAN','OBSERVABILITY_PLAN','HEALTH_CHECKS','INCIDENT_RESPONSE','RUNBOOK','BACKUP_RECOVERY','REFACTOR_REPORT','REFACTOR_VERIFICATION','PERFORMANCE_REPORT','PERFORMANCE_RECHECK','RELEASE_REPORT','DEPLOYMENT_VERIFICATION','OPERATIONS_READINESS')) {
-  $target = Join-Path $studio "$name.md"
-  if(-not (Test-Path -LiteralPath $target)) { Copy-Item -LiteralPath (Join-Path $root "templates/studio/$name.template.md") -Destination $target; $created.Add(".studio/$name.md") }
-}
-Write-Host "Approved project records initialized: $(if($created.Count){$created -join ', '}else{'none; all records already existed'})"
+$ErrorActionPreference='Stop';. (Join-Path $PSScriptRoot 'records/Test-RequiredProjectRecords.ps1')
+$project=(Resolve-Path -LiteralPath $ProjectRoot).Path;$studio=Join-Path $project '.studio';$root=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path;if(-not(Test-Path (Join-Path $studio 'APPROVED_CONCEPT.md'))){throw 'Cannot initialize post-approval records without APPROVED_CONCEPT.md.'}
+$req=Get-StudioRequirements $project;if(-not $req.state.valid){throw 'Initialize requires valid machine-readable PROJECT_STATE.md.'};$wanted=@('IMPLEMENTATION_PLAN','ACCEPTANCE_CRITERIA','PROJECT_SNAPSHOT','CONTEXT_INDEX');$s=@($req.surfaces);if($s -contains 'frontend-visible'){$wanted+='DESIGN_SYSTEM';if(@($req.state.record.metadata.data.copySurfaces).Count){$wanted+='COPY'}};if($s -contains 'backend-api'){$wanted+=@('BACKEND_SPEC','API_CONTRACT')};if($s -contains 'database'){$wanted+=@('DATABASE_DECISION','DATA_MODEL')};if($s -contains 'integration'){$wanted+=@('INTEGRATION_SPEC','EXTERNAL_SERVICES','ENVIRONMENT_CONTRACT')};if(@($s|Where-Object{$_ -in @('authentication','sensitive-data')}).Count){$wanted+=@('THREAT_MODEL','SECURITY_MODEL')}
+$created=[Collections.Generic.List[string]]::new();foreach($name in $wanted|Select-Object -Unique){$target=Join-Path $studio "$name.md";$template=Join-Path $root "templates/studio/$name.template.md";if(-not(Test-Path $target) -and (Test-Path $template)){Copy-Item -LiteralPath $template -Destination $target;$created.Add(".studio/$name.md")}}
+$existing=@(Get-ChildItem -LiteralPath $studio -File -Filter '*.md'|ForEach-Object Name);$required=@($req.required|ForEach-Object name);$irrelevant=@($existing|Where-Object{$_ -notin $required -and $_ -notin @('PROJECT_STATE.md','APPROVED_CONCEPT.md')});$report=[ordered]@{schemaVersion=1;generatedAt=[DateTime]::UtcNow.ToString('o');required=$required;optional=@($wanted|ForEach-Object{"$_.md"}|Where-Object{$_ -notin $required});irrelevant=$irrelevant;legacyEmptyRecords=@();safeCleanupCandidates=$irrelevant;deleted=@();created=@($created)};New-Item -ItemType Directory -Force -Path (Join-Path $studio 'reports')|Out-Null;$report|ConvertTo-Json -Depth 6|Set-Content -LiteralPath (Join-Path $studio 'reports/record-initialization.json') -Encoding utf8;Write-Host "Selective project records initialized: $(if($created.Count){$created -join ', '}else{'none'})"

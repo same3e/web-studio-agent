@@ -1,3 +1,6 @@
+<!-- studio-record
+{"schemaVersion":1,"recordType":"technical-decision","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"selectedOptionId":"","stack":[],"alternativesConsidered":[],"rationale":"","tradeoffs":[],"approvedDeviations":[]}}
+-->
 # Technical decision
 
 ## Context

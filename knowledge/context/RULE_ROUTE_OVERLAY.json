@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "routes": [
+    {"id":"CQ-01","source":"knowledge/engineering/CODE_QUALITY.md","roles":["*"],"stages":["implementation-planning","implementation","specialist-verification"],"productTypes":[],"surfaces":[],"stacks":[],"priority":100},
+    {"id":"CQ-12","source":"knowledge/engineering/CODE_QUALITY.md","roles":["backend-builder","integration-builder","database-architect","code-reviewer","test-engineer"],"stages":["implementation","specialist-verification"],"productTypes":[],"surfaces":["backend-api","integration","database"],"stacks":[],"priority":100},
+    {"id":"CQ-20","source":"knowledge/engineering/CODE_QUALITY.md","roles":["frontend-builder","backend-builder","integration-builder","code-reviewer","test-engineer"],"stages":["implementation","specialist-verification"],"productTypes":[],"surfaces":[],"stacks":[],"priority":100},
+    {"id":"CQ-25","source":"knowledge/engineering/CODE_QUALITY.md","roles":["frontend-builder","backend-builder","integration-builder","test-engineer","code-reviewer"],"stages":["implementation","specialist-verification"],"productTypes":[],"surfaces":[],"stacks":[],"priority":100},
+    {"id":"CQ-29","source":"knowledge/engineering/CODE_QUALITY.md","roles":["*"],"stages":["implementation-planning","implementation","specialist-verification"],"productTypes":[],"surfaces":[],"stacks":[],"priority":100},
+    {"id":"FQ-01","source":"knowledge/ui/FRONTEND_QUALITY.md","roles":["frontend-builder","browser-qa"],"stages":["implementation","specialist-verification"],"productTypes":["website","landing-page","web-app"],"surfaces":["frontend-visible"],"stacks":[],"priority":100},
+    {"id":"FQ-14","source":"knowledge/ui/FRONTEND_QUALITY.md","roles":["frontend-builder","browser-qa"],"stages":["implementation","specialist-verification"],"productTypes":["website","landing-page","web-app"],"surfaces":["frontend-visible"],"stacks":[],"priority":100},
+    {"id":"FQ-15","source":"knowledge/ui/FRONTEND_QUALITY.md","roles":["frontend-builder","browser-qa"],"stages":["implementation","specialist-verification"],"productTypes":["website","landing-page","web-app"],"surfaces":["frontend-visible"],"stacks":[],"priority":100},
+    {"id":"FQ-16","source":"knowledge/ui/FRONTEND_QUALITY.md","roles":["frontend-builder","browser-qa"],"stages":["implementation","specialist-verification"],"productTypes":["website","landing-page","web-app"],"surfaces":["frontend-visible"],"stacks":[],"priority":100},
+    {"id":"LG-01","source":"knowledge/ui/LAYOUT.md","roles":["frontend-builder","browser-qa"],"stages":["implementation","specialist-verification"],"productTypes":["website","landing-page","web-app"],"surfaces":["frontend-visible"],"stacks":[],"priority":100},
+    {"id":"LG-18","source":"knowledge/ui/LAYOUT.md","roles":["frontend-builder","browser-qa"],"stages":["implementation","specialist-verification"],"productTypes":["website","landing-page","web-app"],"surfaces":["frontend-visible"],"stacks":[],"priority":100},
+    {"id":"HT-01","source":"knowledge/ui/HOUSE_TASTE_DEFAULTS.md","roles":["frontend-builder","browser-qa"],"stages":["implementation","specialist-verification"],"productTypes":["website","landing-page"],"surfaces":["frontend-visible"],"stacks":[],"priority":20}
+  ],
+  "intentionallyUnrouted": []
+}

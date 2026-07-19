@@ -1,17 +1,279 @@
 {
   "schemaVersion": 1,
+  "generatedFrom": [
+    "knowledge/context/RULE_ROUTE_OVERLAY.json",
+    "canonical rule catalogs"
+  ],
   "rules": [
-    {"id":"CQ-01","summary":"Inspect repository conventions and commands before editing.","source":"knowledge/engineering/CODE_QUALITY.md","roles":["product-studio","frontend-builder","backend-builder","database-architect","integration-builder","test-engineer","code-reviewer","refactor-engineer"],"stages":["implementation-planning","implementation","specialist-verification"],"productTypes":[],"stacks":[],"surfaces":["code-change"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]},
-    {"id":"CQ-12","summary":"Validate untrusted runtime input at every applicable boundary.","source":"knowledge/engineering/CODE_QUALITY.md","roles":["backend-builder","integration-builder","database-architect","code-reviewer","test-engineer"],"stages":["implementation","specialist-verification"],"productTypes":[],"stacks":[],"surfaces":["api","form","provider","storage"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found","exception-requested"]},
-    {"id":"CQ-20","summary":"Do not swallow errors; document only explicitly safe ignored failures.","source":"knowledge/engineering/CODE_QUALITY.md","roles":["frontend-builder","backend-builder","integration-builder","code-reviewer","test-engineer"],"stages":["implementation","specialist-verification"],"productTypes":[],"stacks":[],"surfaces":["async","server","client"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]},
-    {"id":"CQ-25","summary":"Test approved observable behavior and automatable regressions.","source":"knowledge/engineering/CODE_QUALITY.md","roles":["frontend-builder","backend-builder","integration-builder","test-engineer","code-reviewer","refactor-engineer"],"stages":["implementation","specialist-verification"],"productTypes":[],"stacks":[],"surfaces":["code-change"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]},
-    {"id":"CQ-29","summary":"Keep secrets out of source, bundles, logs, fixtures, and committed configuration.","source":"knowledge/engineering/CODE_QUALITY.md","roles":["product-studio","frontend-builder","backend-builder","integration-builder","database-architect","code-reviewer","test-engineer"],"stages":["implementation-planning","implementation","specialist-verification"],"productTypes":[],"stacks":[],"surfaces":["security"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found","exception-requested"]},
-    {"id":"FQ-01","summary":"Use a clear hierarchy that serves the active journey.","source":"knowledge/ui/FRONTEND_QUALITY.md","roles":["product-studio","frontend-builder","browser-qa"],"stages":["implementation-planning","implementation","specialist-verification"],"productTypes":["website","landing-page","web-app"],"stacks":[],"surfaces":["visible-page-layout"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]},
-    {"id":"FQ-16","summary":"Prevent overflow, clipping, and broken responsive composition.","source":"knowledge/ui/FRONTEND_QUALITY.md","roles":["frontend-builder","browser-qa"],"stages":["implementation","specialist-verification"],"productTypes":["website","landing-page","web-app"],"stacks":[],"surfaces":["visible-page-layout"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]},
-    {"id":"HT-01","summary":"Apply house taste only after stronger project and universal rules.","source":"knowledge/ui/HOUSE_TASTE_DEFAULTS.md","roles":["product-studio","frontend-builder","browser-qa"],"stages":["implementation-planning","implementation","specialist-verification"],"productTypes":["website","landing-page"],"stacks":[],"surfaces":["visible-page-layout"],"strength":"default","priority":20,"detailRequiredWhen":["exception-requested"]},
-    {"id":"TS-02","summary":"Use unknown at untrusted TypeScript boundaries and narrow with validation.","source":"knowledge/engineering/stacks/TYPESCRIPT.md","roles":["frontend-builder","backend-builder","integration-builder","test-engineer","code-reviewer"],"stages":["implementation","specialist-verification"],"productTypes":[],"stacks":["typescript"],"surfaces":["code-change"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]},
-    {"id":"RE-01","summary":"Keep React render pure and avoid unnecessary stored derived state.","source":"knowledge/engineering/stacks/REACT.md","roles":["frontend-builder","test-engineer","code-reviewer"],"stages":["implementation","specialist-verification"],"productTypes":[],"stacks":["react"],"surfaces":["visible-page-layout"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]},
-    {"id":"NX-02","summary":"Keep secrets and privileged data server-side in Next.js.","source":"knowledge/engineering/stacks/NEXTJS.md","roles":["frontend-builder","backend-builder","code-reviewer"],"stages":["implementation","specialist-verification"],"productTypes":[],"stacks":["nextjs"],"surfaces":["server","security"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]},
-    {"id":"ND-01","summary":"Validate server input and use proportionate timeout and cancellation controls.","source":"knowledge/engineering/stacks/NODE.md","roles":["backend-builder","integration-builder","test-engineer","code-reviewer"],"stages":["implementation","specialist-verification"],"productTypes":[],"stacks":["node"],"surfaces":["server","provider"],"strength":"hard","priority":100,"detailRequiredWhen":["violation-found"]}
+    {
+      "id": "CQ-01",
+      "summary": "Inspect architecture, manifests, dependencies, conventions, and runnable commands before editing.",
+      "source": "knowledge/engineering/CODE_QUALITY.md",
+      "roles": [
+        "*"
+      ],
+      "stages": [
+        "implementation-planning",
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [],
+      "surfaces": [],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "CQ-12",
+      "summary": "Validate untrusted API, form, environment, storage, URL, webhook, file, and provider input at runtime; static types are insufficient.",
+      "source": "knowledge/engineering/CODE_QUALITY.md",
+      "roles": [
+        "backend-builder",
+        "integration-builder",
+        "database-architect",
+        "code-reviewer",
+        "test-engineer"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [],
+      "surfaces": [
+        "backend-api",
+        "integration",
+        "database"
+      ],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "CQ-20",
+      "summary": "Do not swallow errors; empty catches or log-only handling require an explicitly safe-to-ignore documented reason.",
+      "source": "knowledge/engineering/CODE_QUALITY.md",
+      "roles": [
+        "frontend-builder",
+        "backend-builder",
+        "integration-builder",
+        "code-reviewer",
+        "test-engineer"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [],
+      "surfaces": [],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "CQ-25",
+      "summary": "Derive tests from approved observable behavior and add automatable regression coverage for fixed defects.",
+      "source": "knowledge/engineering/CODE_QUALITY.md",
+      "roles": [
+        "frontend-builder",
+        "backend-builder",
+        "integration-builder",
+        "test-engineer",
+        "code-reviewer"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [],
+      "surfaces": [],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "CQ-29",
+      "summary": "Secrets never enter source, bundles, logs, screenshots, fixtures, or committed configuration.",
+      "source": "knowledge/engineering/CODE_QUALITY.md",
+      "roles": [
+        "*"
+      ],
+      "stages": [
+        "implementation-planning",
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [],
+      "surfaces": [],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "FQ-01",
+      "summary": "Distinguish primary content, primary action, and supporting content.",
+      "source": "knowledge/ui/FRONTEND_QUALITY.md",
+      "roles": [
+        "frontend-builder",
+        "browser-qa"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [
+        "website",
+        "landing-page",
+        "web-app"
+      ],
+      "surfaces": [
+        "frontend-visible"
+      ],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "FQ-14",
+      "summary": "Recompose mobile; do not merely scale desktop.",
+      "source": "knowledge/ui/FRONTEND_QUALITY.md",
+      "roles": [
+        "frontend-builder",
+        "browser-qa"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [
+        "website",
+        "landing-page",
+        "web-app"
+      ],
+      "surfaces": [
+        "frontend-visible"
+      ],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "FQ-15",
+      "summary": "Forbid horizontal page overflow except approved contained horizontal interaction.",
+      "source": "knowledge/ui/FRONTEND_QUALITY.md",
+      "roles": [
+        "frontend-builder",
+        "browser-qa"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [
+        "website",
+        "landing-page",
+        "web-app"
+      ],
+      "surfaces": [
+        "frontend-visible"
+      ],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "FQ-16",
+      "summary": "Do not clip important content or actions for composition.",
+      "source": "knowledge/ui/FRONTEND_QUALITY.md",
+      "roles": [
+        "frontend-builder",
+        "browser-qa"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [
+        "website",
+        "landing-page",
+        "web-app"
+      ],
+      "surfaces": [
+        "frontend-visible"
+      ],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "LG-01",
+      "summary": "Define a grid strategy before visible source changes.",
+      "source": "knowledge/ui/LAYOUT.md",
+      "roles": [
+        "frontend-builder",
+        "browser-qa"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [
+        "website",
+        "landing-page",
+        "web-app"
+      ],
+      "surfaces": [
+        "frontend-visible"
+      ],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "LG-18",
+      "summary": "Use content-failure breakpoints and representative-width verification.",
+      "source": "knowledge/ui/LAYOUT.md",
+      "roles": [
+        "frontend-builder",
+        "browser-qa"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [
+        "website",
+        "landing-page",
+        "web-app"
+      ],
+      "surfaces": [
+        "frontend-visible"
+      ],
+      "stacks": [],
+      "strength": "hard",
+      "priority": 100
+    },
+    {
+      "id": "HT-01",
+      "summary": "Avoid square or nearly square buttons; use deliberate rounded controls.",
+      "source": "knowledge/ui/HOUSE_TASTE_DEFAULTS.md",
+      "roles": [
+        "frontend-builder",
+        "browser-qa"
+      ],
+      "stages": [
+        "implementation",
+        "specialist-verification"
+      ],
+      "productTypes": [
+        "website",
+        "landing-page"
+      ],
+      "surfaces": [
+        "frontend-visible"
+      ],
+      "stacks": [],
+      "strength": "house-default",
+      "priority": 20
+    }
   ]
 }

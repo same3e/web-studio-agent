@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"acceptance-criteria"},"data":{"required":["criteria"]}}}]}

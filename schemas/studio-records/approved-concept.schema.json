@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"approved-concept"},"data":{"required":["conceptId","approval","approvedModifications","rejectedAlternatives"]}}}]}

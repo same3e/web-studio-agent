@@ -1,5 +1,7 @@
 # Web Studio Agent
 
+Project records are machine-validated: missing or draft required evidence blocks implementation, and only applicable records and specialists are initialized.
+
 Web Studio Agent is an open-source workflow for Codex and Claude Code that turns a product idea into an approved, implemented, and verified website or web application. It keeps decisions and evidence close to the project instead of treating a successful build as the end of the work.
 
 ## What it does

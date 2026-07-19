@@ -1,3 +1,6 @@
+<!-- studio-record
+{"schemaVersion":1,"recordType":"approved-concept","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"conceptId":"","approval":{"status":"draft","approvedAt":"","approvedBy":"","source":""},"approvedModifications":[],"rejectedAlternatives":[]}}
+-->
 # Approved concept
 
 ## Explicit decision

@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"technical-decision"},"data":{"required":["selectedOptionId","stack","alternativesConsidered","rationale","tradeoffs","approvedDeviations"]}}}]}

@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"project-state"},"data":{"required":["currentState","productType","workflowMode","surfaces","runnable","risks","nextRequiredTransition"]}}}]}

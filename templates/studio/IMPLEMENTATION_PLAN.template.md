@@ -1,3 +1,6 @@
+<!-- studio-record
+{"schemaVersion":1,"recordType":"implementation-plan","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"tasks":[],"validationCommands":[],"approvedExceptions":[],"knownDebt":[]}}
+-->
 # Implementation plan
 
 ## Active-scope sequence

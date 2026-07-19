@@ -1,0 +1,1 @@
+{"allOf":[{"$ref":"record-envelope.schema.json"},{"properties":{"recordType":{"const":"implementation-plan"},"data":{"required":["tasks","validationCommands","approvedExceptions","knownDebt"]}}}]}

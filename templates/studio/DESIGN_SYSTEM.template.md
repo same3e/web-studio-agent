@@ -1,3 +1,6 @@
+<!-- studio-record
+{"schemaVersion":1,"recordType":"design-system","status":"draft","owner":"product-studio","updatedAt":"","applicability":{"productTypes":[],"surfaces":[]},"sources":[],"data":{"designThesis":"","signatureElement":{"status":"not-applicable","description":"","reason":""},"gridStrategy":{"columnModel":"","containers":[],"gutters":"","alignmentAnchors":[],"breakpoints":[],"intentionalGridBreaks":[]},"compositionMap":[],"responsivePlan":{},"tasteResolution":{"appliedRuleIds":[],"approvedExceptions":[]}}}
+-->
 # Design system
 
 ## Approved visual language
