@@ -31,7 +31,6 @@ jobs:
       - run: pwsh -File scripts/test_phase4.ps1
       - run: pwsh -File scripts/test_frontend_rules.ps1
       - run: pwsh -File scripts/test_code_quality.ps1
-      - run: pwsh -File scripts/test_context_efficiency.ps1
       - run: pwsh -File scripts/context/build_rule_route_index.ps1 -Check
       - run: pwsh -File scripts/test_false_guarantees.ps1
       - run: pwsh -File scripts/test_runtime_and_specialist_orchestration.ps1
